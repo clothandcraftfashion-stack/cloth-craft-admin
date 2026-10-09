@@ -1,1 +1,101 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloth & Craft Fashion | Admin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+    header {
+      background: #111;
+      color: #d4af37;
+      padding: 20px;
+      border-bottom: 3px solid #d4af37;
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    header p { margin: 6px 0 0; color: white; }
+    main { max-width: 1100px; margin: auto; padding: 20px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+    }
+    .card h3 { margin: 0 0 12px; font-size: 14px; color: #666; }
+    .value { font-size: 25px; font-weight: bold; }
+    .section {
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .status { color: #777; font-size: 14px; }
+    button {
+      background: #111;
+      color: #d4af37;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>C&C | ADMIN PANEL</h1>
+    <p>Cloth & Craft Fashion</p>
+  </header>
+
+  <main>
+    <h2>Dashboard</h2>
+    <p>Sales and store overview</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Total Items Sold</h3>
+        <div class="value" id="itemsSold">—</div>
+      </div>
+      <div class="card">
+        <h3>Total Sales</h3>
+        <div class="value" id="totalSales">৳—</div>
+      </div>
+      <div class="card">
+        <h3>Delivered Orders</h3>
+        <div class="value" id="deliveredOrders">—</div>
+      </div>
+      <div class="card">
+        <h3>Pending Orders</h3>
+        <div class="value" id="pendingOrders">—</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Supabase Connection</h3>
+      <p class="status" id="connectionStatus">
+        Not connected yet. Setup is required.
+      </p>
+      <button type="button" onclick="location.reload()">Refresh</button>
+    </div>
+
+    <div class="section">
+      <h3>Admin Sections</h3>
+      <p>Products · Categories · Orders · Customers · Resellers · Reports</p>
+      <p class="status">
+        Live data and management functions will be connected in the next step.
+      </p>
+    </div>
+  </main>
+</body>
+</html>
