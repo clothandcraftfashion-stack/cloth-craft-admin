@@ -3,236 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>C&C Fashion | Admin Dashboard</title>
+<title>C&C | Admin Panel</title>
 <style>
-:root{--bg:#f4f6fb;--panel:#fff;--ink:#1e2433;--muted:#778096;--line:#e8ebf3;--gold:#d6ad48;--nav:#151821;--blue:#5378f6;--green:#20b486;--purple:#8c65e8;--orange:#f3a44a;--red:#e76876}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}
-.layout{min-height:100vh;display:grid;grid-template-columns:248px minmax(0,1fr)}
-.sidebar{background:var(--nav);color:#e8eaf1;padding:22px 16px;display:flex;flex-direction:column;gap:24px}
-.brand{display:flex;align-items:center;gap:11px;padding:3px 8px 20px;border-bottom:1px solid #2c303c}
-.brand-mark{width:43px;height:43px;border:1px solid var(--gold);border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:800;font-size:17px}
-.brand strong{display:block;font-size:14px;letter-spacing:.7px}.brand small{display:block;color:#a7aaba;font-size:10px;margin-top:5px;letter-spacing:1.5px}
-.nav-label{font-size:10px;color:#777e90;letter-spacing:1.5px;padding:0 12px;margin:2px 0 8px}
-nav{display:grid;gap:5px}.nav-btn{border:0;background:transparent;color:#aeb3c2;padding:12px;border-radius:10px;text-align:left;display:flex;align-items:center;gap:12px;font-size:13px}
-.nav-btn .ico{width:20px;text-align:center;font-size:16px}.nav-btn.active,.nav-btn:hover{background:#292d39;color:#fff}.nav-btn.active{box-shadow:inset 3px 0 var(--gold)}.nav-btn.active .ico{color:var(--gold)}
-.sidebar-bottom{margin-top:auto;background:#202430;border:1px solid #333846;border-radius:14px;padding:14px}.sidebar-bottom strong{font-size:12px}.sidebar-bottom p{color:#aab0bf;font-size:11px;line-height:1.5}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:30px;padding:5px 9px;font-size:10px;font-weight:700;background:#e9f8f1;color:#16845f}.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-main{min-width:0;padding:26px 30px 35px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:26px}.welcome h1{font-size:25px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted);font-size:13px}.top-actions{display:flex;align-items:center;gap:10px}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:11px;width:42px;height:42px;display:grid;place-items:center;color:#5e6679;font-size:17px}.admin-chip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:7px 12px}.avatar{width:32px;height:32px;border-radius:10px;background:#f4e8c8;color:#87641c;display:grid;place-items:center;font-weight:800}.admin-chip strong{display:block;font-size:12px}.admin-chip small{display:block;font-size:10px;color:var(--muted);margin-top:3px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px;flex-wrap:wrap}.toolbar h2{font-size:16px;margin:0}.toolbar p{font-size:11px;color:var(--muted);margin:5px 0 0}.filters{display:flex;gap:8px;flex-wrap:wrap}.select,.search{border:1px solid var(--line);background:#fff;color:#586176;padding:10px 12px;border-radius:9px;font-size:12px;outline:none}.primary{border:0;background:#171a23;color:var(--gold);padding:11px 15px;border-radius:9px;font-weight:700;font-size:12px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;position:relative;overflow:hidden;min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:7px}.stat-label{font-size:11px;color:var(--muted);font-weight:600}.stat-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:17px}.stat-value{font-size:25px;font-weight:800;letter-spacing:-.7px;margin:16px 0 8px}.stat-foot{font-size:10px;color:var(--muted)}.trend{color:#179d72;font-weight:700}.blue{background:#edf1ff;color:var(--blue)}.green{background:#e6f8f1;color:var(--green)}.purple{background:#f1ebff;color:var(--purple)}.orange{background:#fff2e4;color:var(--orange)}
-.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:16px;margin-top:17px}.panel{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:17px}.panel-head h3{margin:0;font-size:14px}.panel-head p{margin:5px 0 0;font-size:11px;color:var(--muted)}.legend{display:flex;gap:13px;font-size:10px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--blue)}.legend span+span i{background:var(--gold)}
-.chart-wrap{height:220px;width:100%;position:relative}.chart-wrap svg{width:100%;height:100%;overflow:visible}.chart-grid{stroke:#edf0f6;stroke-width:1}.chart-label{fill:#9097a8;font-size:10px}.chart-area{fill:url(#areaFill)}.chart-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.chart-line2{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.payment-list{display:grid;gap:17px}.pay-row{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:10px}.pay-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:11px}.pay-name{font-size:12px;font-weight:700}.pay-sub{font-size:10px;color:var(--muted);margin-top:4px}.pay-amount{font-size:12px;font-weight:800;text-align:right}.bar{height:5px;border-radius:20px;background:#eef0f6;margin-top:8px;overflow:hidden}.bar span{display:block;height:100%;border-radius:20px;background:var(--blue)}
-.lower-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(270px,1fr);gap:16px;margin-top:16px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;color:#9299a9;font-size:10px;font-weight:700;padding:11px 9px;border-bottom:1px solid var(--line)}td{padding:13px 9px;border-bottom:1px solid #f0f2f7;font-size:11px}tbody tr:last-child td{border-bottom:0}.product{display:flex;align-items:center;gap:9px}.product-thumb{width:37px;height:42px;border-radius:8px;background:#f0f1f5;display:grid;place-items:center;font-size:19px}.product strong{display:block;font-size:11px}.product small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.status{display:inline-block;padding:5px 8px;border-radius:20px;font-size:9px;font-weight:700}.delivered{background:#e5f8ef;color:#13895e}.pending{background:#fff2dc;color:#b77a1b}.cancelled{background:#ffebee;color:#c84d5c}.empty{padding:20px;color:var(--muted);font-size:12px;text-align:center}
-.quick-list{display:grid;gap:10px}.quick-item{display:flex;align-items:center;gap:10px;border:1px solid #edf0f5;padding:12px;border-radius:11px}.quick-ico{width:35px;height:35px;border-radius:10px;display:grid;place-items:center;font-size:16px}.quick-item strong{font-size:11px;display:block}.quick-item small{font-size:10px;color:var(--muted);display:block;margin-top:4px}.quick-item button{margin-left:auto;background:#f5f6fa;border:0;padding:7px 9px;border-radius:7px;color:#4f586d;font-size:10px}
-.page-view{display:none}.page-view.active{display:block}.notice{padding:12px 14px;border-radius:10px;background:#fff8e9;border:1px solid #f5e4bd;color:#8b6a25;font-size:11px;line-height:1.5;margin-bottom:17px}.section-title{font-size:18px;margin:0 0 6px}.section-desc{color:var(--muted);font-size:12px;margin:0 0 20px}.field-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.field-row input,.field-row select{flex:1;min-width:140px;border:1px solid var(--line);padding:11px;border-radius:9px;background:#fff}.action-btn{border:0;border-radius:8px;background:#171a23;color:var(--gold);padding:10px 13px;font-size:11px;font-weight:700}
-.mobile-menu{display:none}.connection{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}.connection .dot{color:var(--orange)}
-@media(max-width:1050px){.layout{grid-template-columns:210px minmax(0,1fr)}main{padding:22px 18px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid,.lower-grid{grid-template-columns:1fr}}
-@media(max-width:650px){.layout{display:block}.sidebar{position:fixed;z-index:20;left:-260px;top:0;bottom:0;width:248px;transition:left .22s;box-shadow:0 0 0 9999px transparent}.sidebar.open{left:0;box-shadow:0 0 0 9999px #0b102044}.mobile-menu{display:grid}.topbar{align-items:flex-start}.welcome h1{font-size:21px}.welcome p{max-width:210px;line-height:1.4}.admin-chip{display:none}main{padding:18px 13px 25px}.stats{gap:10px}.stat{padding:13px}.stat-value{font-size:22px;margin:12px 0 7px}.stat-icon{width:32px;height:32px}.stat-label{font-size:10px}.panel{padding:15px}.chart-wrap{height:190px}.filters{width:100%}.select,.search{flex:1;min-width:0}.toolbar{align-items:flex-start}.dashboard-grid,.lower-grid{gap:12px}.panel-head{flex-wrap:wrap}}
+:root{--bg:#f5f6fa;--ink:#171717;--gold:#d4af37;--muted:#777;--line:#e8e8ed;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--ink)}
+button,input{font:inherit}button{cursor:pointer}
+.layout{display:flex;min-height:100vh}.sidebar{width:245px;background:#111;color:#fff;padding:22px 15px;flex-shrink:0}
+.brand{padding:4px 10px 24px;border-bottom:1px solid #333;margin-bottom:22px}.brand strong{display:block;color:var(--gold);font-size:20px;letter-spacing:1px}.brand small{display:block;margin-top:6px;color:#ddd}
+.nav-label{font-size:10px;color:#999;letter-spacing:1.6px;padding:12px 12px 8px}.nav button{display:flex;width:100%;gap:12px;align-items:center;text-align:left;background:transparent;border:0;color:#ddd;padding:12px;border-radius:9px;margin:3px 0}.nav button.active,.nav button:hover{background:#292929;color:var(--gold)}.side-foot{margin:32px 10px 0;color:#999;font-size:12px;line-height:1.6}
+.main{min-width:0;flex:1}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:12px}.topbar h2{font-size:18px;margin:0}.top-right{display:flex;align-items:center;gap:12px;color:#666;font-size:13px}.avatar{width:34px;height:34px;border-radius:50%;background:#171717;color:var(--gold);display:grid;place-items:center;font-weight:bold}
+.content{padding:28px;max-width:1500px;margin:auto}.welcome{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:22px}.welcome h1{font-size:25px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted);font-size:13px}.gold-btn{background:var(--gold);color:#111;border:0;border-radius:8px;padding:11px 15px;font-weight:700}
+.range{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}.range button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 13px;color:#555;font-size:12px}.range button.active{background:#111;color:var(--gold);border-color:#111}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px;min-width:0;box-shadow:0 3px 14px #16161605}.card-top{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#777;font-size:12px}.symbol{width:35px;height:35px;border-radius:10px;background:#fff6d7;display:grid;place-items:center;color:#92720b;font-size:17px}.metric{font-size:27px;font-weight:750;margin:17px 0 8px;letter-spacing:-.5px}.sub{font-size:11px;color:#888}.section-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:18px}.section{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;min-width:0}.section h3{font-size:15px;margin:0 0 6px}.section .desc{font-size:12px;color:#888;margin:0 0 18px}.chart{height:175px;display:flex;align-items:end;gap:12px;padding:10px 5px 0;border-bottom:1px solid var(--line)}.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:end}.bar{width:min(30px,70%);border-radius:6px 6px 0 0;background:linear-gradient(#f3d974,#caa52a);min-height:8px}.bar-wrap small{font-size:10px;color:#888;padding-bottom:8px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick button{background:#fafafa;border:1px solid var(--line);border-radius:10px;text-align:left;padding:15px;color:#333;font-size:12px}.quick button span{display:block;font-size:20px;margin-bottom:7px}.status-box{margin-top:17px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.status-box h3{margin:0 0 5px;font-size:14px}.status-box p{margin:0;font-size:12px;color:#888}.pill{font-size:11px;padding:7px 10px;border-radius:20px;background:#fff6d7;color:#7d6200}.notice{font-size:12px;color:#777;line-height:1.6;margin-top:15px}.mobile-menu{display:none;background:transparent;border:0;font-size:22px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.section-grid{grid-template-columns:1fr}.sidebar{width:210px}.content{padding:20px}}
+@media(max-width:650px){.layout{display:block}.sidebar{display:none;width:100%;padding:15px}.sidebar.open{display:block}.brand{padding-bottom:15px}.topbar{height:60px;padding:0 15px}.mobile-menu{display:block}.topbar h2{font-size:16px}.top-right .admin-label{display:none}.content{padding:16px 12px}.welcome h1{font-size:22px}.cards{gap:10px}.card{padding:13px}.metric{font-size:22px;margin:14px 0 7px}.card-top{font-size:11px}.symbol{width:30px;height:30px}.section{padding:15px}.chart{gap:6px}.quick{gap:8px}}
 </style>
 </head>
 <body>
 <div class="layout">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-mark">C&C</div><div><strong>CLOTH & CRAFT</strong><small>FASHION ADMIN</small></div></div>
-  <div>
-    <div class="nav-label">MAIN MENU</div>
-    <nav id="navigation">
-      <button class="nav-btn active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
-      <button class="nav-btn" data-page="products"><span class="ico">♧</span>Products</button>
-      <button class="nav-btn" data-page="categories"><span class="ico">▤</span>Categories</button>
-      <button class="nav-btn" data-page="orders"><span class="ico">▣</span>Orders</button>
-      <button class="nav-btn" data-page="customers"><span class="ico">♙</span>Customers</button>
-      <button class="nav-btn" data-page="resellers"><span class="ico">♧</span>Resellers</button>
-      <button class="nav-btn" data-page="reports"><span class="ico">▥</span>Reports</button>
-    </nav>
-  </div>
-  <div>
-    <div class="nav-label">SYSTEM</div>
-    <nav>
-      <button class="nav-btn" data-page="settings"><span class="ico">⚙️</span>Settings</button>
-    </nav>
-  </div>
-  <div class="sidebar-bottom">
-    <strong>Store connection</strong>
-    <p>Connect your Supabase database to load live store information.</p>
-    <span class="pill" id="sideConnection"><span class="dot"></span> Checking</span>
-  </div>
+  <div class="brand"><strong>C&amp;C ADMIN</strong><small>Cloth &amp; Craft Fashion</small></div>
+  <div class="nav-label">MAIN MENU</div>
+  <nav class="nav">
+    <button class="active" onclick="showSection('Dashboard',this)">▦ <span>Dashboard</span></button>
+    <button onclick="showSection('Products',this)">□ <span>Products</span></button>
+    <button onclick="showSection('Categories',this)">▤ <span>Categories</span></button>
+    <button onclick="showSection('Orders',this)">▣ <span>Orders</span></button>
+    <button onclick="showSection('Customers',this)">♙ <span>Customers</span></button>
+    <button onclick="showSection('Resellers',this)">♧ <span>Resellers</span></button>
+    <div class="nav-label">MANAGEMENT</div>
+    <button onclick="showSection('Commissions',this)">৳ <span>Commissions</span></button>
+    <button onclick="showSection('Reports',this)">▥ <span>Reports</span></button>
+    <button onclick="showSection('Settings',this)">⚙️ <span>Settings</span></button>
+  </nav>
+  <div class="side-foot">Admin workspace<br>Version 1.0 · Setup mode</div>
 </aside>
-
-<main>
-  <div class="topbar">
-    <div style="display:flex;gap:12px;align-items:flex-start">
-      <button class="icon-btn mobile-menu" id="menuToggle" aria-label="Open menu">☰</button>
-      <div class="welcome"><h1 id="pageHeading">Dashboard overview</h1><p id="pageSub">Welcome back! Here's what's happening with your store.</p></div>
+<div class="main">
+  <header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Open menu">☰</button><h2 id="pageTitle">Dashboard</h2></div><div class="top-right"><span class="admin-label">Cloth &amp; Craft Fashion</span><div class="avatar">A</div></div></header>
+  <main class="content">
+    <div class="welcome"><div><h1>Store Overview</h1><p>Welcome back. Here's what's happening with your store.</p></div><button class="gold-btn" onclick="testConnection()">↻ Test Supabase</button></div>
+    <div class="range"><button class="active" onclick="setRange(this,'Today')">Today</button><button onclick="setRange(this,'Last 7 Days')">Last 7 Days</button><button onclick="setRange(this,'This Month')">This Month</button><button onclick="setRange(this,'All Time')">All Time</button></div>
+    <section class="cards">
+      <article class="card"><div class="card-top"><span>Total Items Sold</span><span class="symbol">▣</span></div><div class="metric" id="itemsSold">—</div><div class="sub">Live order data not connected</div></article>
+      <article class="card"><div class="card-top"><span>Total Sales</span><span class="symbol">৳</span></div><div class="metric" id="totalSales">৳—</div><div class="sub">Live order data not connected</div></article>
+      <article class="card"><div class="card-top"><span>Delivered Orders</span><span class="symbol">✓</span></div><div class="metric" id="deliveredOrders">—</div><div class="sub">Confirmed delivered orders</div></article>
+      <article class="card"><div class="card-top"><span>Pending Orders</span><span class="symbol">◷</span></div><div class="metric" id="pendingOrders">—</div><div class="sub">Orders awaiting processing</div></article>
+    </section>
+    <div class="section-grid">
+      <section class="section"><h3>Sales Overview</h3><p class="desc">Illustrative chart layout — real sales data will appear after setup.</p><div class="chart" aria-label="Sample sales chart"><div class="bar-wrap"><div class="bar" style="height:28%"></div><small>Mon</small></div><div class="bar-wrap"><div class="bar" style="height:50%"></div><small>Tue</small></div><div class="bar-wrap"><div class="bar" style="height:37%"></div><small>Wed</small></div><div class="bar-wrap"><div class="bar" style="height:75%"></div><small>Thu</small></div><div class="bar-wrap"><div class="bar" style="height:56%"></div><small>Fri</small></div><div class="bar-wrap"><div class="bar" style="height:88%"></div><small>Sat</small></div><div class="bar-wrap"><div class="bar" style="height:66%"></div><small>Sun</small></div></div></section>
+      <section class="section"><h3>Quick Actions</h3><p class="desc">Management shortcuts (features will be connected in later steps).</p><div class="quick"><button onclick="showSection('Products')"><span>＋</span>Add Product</button><button onclick="showSection('Orders')"><span>▣</span>View Orders</button><button onclick="showSection('Resellers')"><span>♧</span>Resellers</button><button onclick="showSection('Reports')"><span>▥</span>View Reports</button></div></section>
     </div>
-    <div class="top-actions">
-      <button class="icon-btn" id="refreshBtn" title="Refresh data">↻</button>
-      <div class="admin-chip"><div class="avatar">CC</div><div><strong>Store Admin</strong><small>Cloth & Craft Fashion</small></div></div>
-    </div>
-  </div>
-
-  <section class="page-view active" id="page-dashboard">
-    <div class="toolbar">
-      <div><h2>Store performance</h2><p>Live metrics will appear when connected to real order data.</p></div>
-      <div class="filters"><select class="select" id="periodSelect"><option value="today">Today</option><option value="7">Last 7 days</option><option value="month">This month</option><option value="all">All time</option></select><button class="primary" id="reloadData">↻ Refresh data</button></div>
-    </div>
-    <div class="stats">
-      <article class="stat"><div class="stat-top"><span class="stat-label">Total Sales</span><span class="stat-icon blue">৳</span></div><div class="stat-value" id="totalSales">৳—</div><div class="stat-foot">Based on real order records</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Items Sold</span><span class="stat-icon green">▣</span></div><div class="stat-value" id="itemsSold">—</div><div class="stat-foot">Delivered order items</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Delivered Orders</span><span class="stat-icon purple">✓</span></div><div class="stat-value" id="deliveredOrders">—</div><div class="stat-foot">Successfully delivered</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Pending Orders</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="pendingOrders">—</div><div class="stat-foot">Waiting for action</div></article>
-    </div>
-    <div class="dashboard-grid">
-      <section class="panel">
-        <div class="panel-head"><div><h3>Sales analytics</h3><p>Sales trend for the selected period</p></div><div class="legend"><span><i></i>Revenue</span><span><i></i>Orders</span></div></div>
-        <div class="chart-wrap">
-          <svg viewBox="0 0 600 220" role="img" aria-label="Sales analytics chart">
-            <defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#5378f6" stop-opacity=".18"/><stop offset="100%" stop-color="#5378f6" stop-opacity="0"/></linearGradient></defs>
-            <line class="chart-grid" x1="38" y1="25" x2="585" y2="25"/><line class="chart-grid" x1="38" y1="65" x2="585" y2="65"/><line class="chart-grid" x1="38" y1="105" x2="585" y2="105"/><line class="chart-grid" x1="38" y1="145" x2="585" y2="145"/><line class="chart-grid" x1="38" y1="185" x2="585" y2="185"/>
-            <text class="chart-label" x="2" y="28">High</text><text class="chart-label" x="5" y="188">Low</text>
-            <path class="chart-area" d="M40 150 C75 142 84 106 120 121 S175 160 210 111 S265 78 300 98 S355 50 390 76 S450 120 480 64 S535 50 580 30 L580 185 L40 185 Z"/>
-            <path class="chart-line" d="M40 150 C75 142 84 106 120 121 S175 160 210 111 S265 78 300 98 S355 50 390 76 S450 120 480 64 S535 50 580 30"/>
-            <path class="chart-line2" d="M40 165 C75 155 90 165 120 150 S175 130 210 145 S265 120 300 130 S355 100 390 115 S450 140 480 110 S535 120 580 90"/>
-            <text class="chart-label" x="38" y="208">Start</text><text class="chart-label" x="170" y="208">Period</text><text class="chart-label" x="310" y="208">Middle</text><text class="chart-label" x="445" y="208">Recent</text><text class="chart-label" x="555" y="208">Now</text>
-          </svg>
-        </div>
-        <p class="status" id="chartNote">Illustrative chart layout — real chart values will be connected after the order schema is confirmed.</p>
-      </section>
-      <section class="panel">
-        <div class="panel-head"><div><h3>Payment overview</h3><p>Payment method breakdown</p></div><span class="pill">Live data pending</span></div>
-        <div class="payment-list">
-          <div class="pay-row"><div class="pay-icon" style="background:#fff0f3;color:#d64a69">bK</div><div><div class="pay-name">bKash</div><div class="pay-sub">Awaiting payment data<div class="bar"><span style="width:0;background:#d64a69"></span></div></div></div><div class="pay-amount">—</div></div>
-          <div class="pay-row"><div class="pay-icon" style="background:#e9f7ee;color:#159454">N</div><div><div class="pay-name">Nagad</div><div class="pay-sub">Awaiting payment data<div class="bar"><span style="width:0;background:#159454"></span></div></div></div><div class="pay-amount">—</div></div>
-          <div class="pay-row"><div class="pay-icon" style="background:#f0ebff;color:#7a56cf">R</div><div><div class="pay-name">Rocket</div><div class="pay-sub">Awaiting payment data<div class="bar"><span style="width:0;background:#7a56cf"></span></div></div></div><div class="pay-amount">—</div></div>
-          <div class="pay-row"><div class="pay-icon" style="background:#eaf0ff;color:#4266d5">COD</div><div><div class="pay-name">Cash on delivery</div><div class="pay-sub">Awaiting payment data<div class="bar"><span style="width:0;background:#4266d5"></span></div></div></div><div class="pay-amount">—</div></div>
-        </div>
-      </section>
-    </div>
-    <div class="lower-grid">
-      <section class="panel">
-        <div class="panel-head"><div><h3>Recent orders</h3><p>Latest orders from your store</p></div><button class="action-btn" data-goto="orders">View all</button></div>
-        <div class="table-wrap"><table><thead><tr><th>ORDER</th><th>CUSTOMER</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="recentOrders"><tr><td colspan="4" class="empty">Connect and authorize order data to show real orders.</td></tr></tbody></table></div>
-      </section>
-      <section class="panel">
-        <div class="panel-head"><div><h3>Quick actions</h3><p>Common store management tasks</p></div></div>
-        <div class="quick-list">
-          <div class="quick-item"><div class="quick-ico blue">＋</div><div><strong>Add a product</strong><small>Manage your product catalog</small></div><button data-goto="products">Open</button></div>
-          <div class="quick-item"><div class="quick-ico green">▤</div><div><strong>Manage categories</strong><small>Organize collections</small></div><button data-goto="categories">Open</button></div>
-          <div class="quick-item"><div class="quick-ico purple">▣</div><div><strong>Review orders</strong><small>Check customer purchases</small></div><button data-goto="orders">Open</button></div>
-          <div class="quick-item"><div class="quick-ico orange">♙</div><div><strong>Reseller center</strong><small>Review reseller performance</small></div><button data-goto="resellers">Open</button></div>
-        </div>
-      </section>
-    </div>
-  </section>
-
-  <section class="page-view" id="page-products">
-    <h2 class="section-title">Products</h2><p class="section-desc">View and manage products stored in Supabase.</p>
-    <div class="notice">Product editing and image upload will be enabled after confirming the exact products table columns and admin authentication. No sample products are being presented as real data.</div>
-    <div class="panel"><div class="field-row"><input id="productSearch" placeholder="Search products by name..." aria-label="Search products"><button class="action-btn" id="searchProducts">Search</button></div><div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>PRICE</th><th>STOCK</th><th>STATUS</th></tr></thead><tbody id="productsBody"><tr><td colspan="4" class="empty">Product list will load after schema mapping.</td></tr></tbody></table></div></div>
-  </section>
-
-  <section class="page-view" id="page-categories">
-    <h2 class="section-title">Categories</h2><p class="section-desc">Organize your store collections.</p>
-    <div class="notice">Your categories table is in Supabase. This panel will show and manage it once the column names and admin login are confirmed.</div>
-    <div class="panel"><div class="field-row"><input id="categorySearch" placeholder="Search categories..." aria-label="Search categories"><button class="action-btn" id="searchCategories">Search</button></div><div class="table-wrap"><table><thead><tr><th>CATEGORY</th><th>STATUS</th></tr></thead><tbody id="categoriesBody"><tr><td colspan="2" class="empty">Category list will load after schema mapping.</td></tr></tbody></table></div></div>
-  </section>
-
-  <section class="page-view" id="page-orders">
-    <h2 class="section-title">Orders</h2><p class="section-desc">Find orders and follow delivery progress.</p>
-    <div class="notice">Orders will appear only when the signed-in admin has permission to read the orders table. Customer order creation and status updates need secure database policies.</div>
-    <div class="panel"><div class="field-row"><input id="orderSearch" placeholder="Search by order code..." aria-label="Search order code"><select class="select" id="orderStatusFilter"><option value="">All statuses</option><option value="pending">Pending</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select><button class="action-btn" id="searchOrders">Search</button></div><div class="table-wrap"><table><thead><tr><th>ORDER CODE</th><th>DATE</th><th>TOTAL</th><th>STATUS</th></tr></thead><tbody id="ordersBody"><tr><td colspan="4" class="empty">No order data loaded yet.</td></tr></tbody></table></div></div>
-  </section>
-
-  <section class="page-view" id="page-customers">
-    <h2 class="section-title">Customers</h2><p class="section-desc">Customer profiles and purchase activity.</p>
-    <div class="notice">Customer information is private. It will only be shown to an authenticated admin with the correct Supabase permissions.</div>
-    <div class="panel"><div class="field-row"><input id="customerSearch" placeholder="Search customers..." aria-label="Search customers"><button class="action-btn" id="searchCustomers">Search</button></div><div class="table-wrap"><table><thead><tr><th>CUSTOMER</th><th>ORDERS</th><th>POINTS</th></tr></thead><tbody id="customersBody"><tr><td colspan="3" class="empty">Customer data is not loaded.</td></tr></tbody></table></div></div>
-  </section>
-
-  <section class="page-view" id="page-resellers">
-    <h2 class="section-title">Reseller center</h2><p class="section-desc">Track reseller performance and commission records.</p>
-    <div class="stats">
-      <article class="stat"><div class="stat-top"><span class="stat-label">Total Resellers</span><span class="stat-icon blue">♙</span></div><div class="stat-value">—</div><div class="stat-foot">Live data pending</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Orders Referred</span><span class="stat-icon green">↗️</span></div><div class="stat-value">—</div><div class="stat-foot">Live data pending</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Commission Due</span><span class="stat-icon purple">৳</span></div><div class="stat-value">৳—</div><div class="stat-foot">Live data pending</div></article>
-      <article class="stat"><div class="stat-top"><span class="stat-label">Referral Bonuses</span><span class="stat-icon orange">★</span></div><div class="stat-value">৳—</div><div class="stat-foot">Live data pending</div></article>
-    </div>
-    <div class="notice" style="margin-top:16px">Commission figures must be calculated from verified delivered orders and the agreed tier rules, not from unverified demo values.</div>
-    <div class="panel"><div class="table-wrap"><table><thead><tr><th>RESELLER</th><th>DELIVERED ORDERS</th><th>COMMISSION</th><th>STATUS</th></tr></thead><tbody><tr><td colspan="4" class="empty">Reseller records will appear after the commission and profile permissions are configured.</td></tr></tbody></table></div></div>
-  </section>
-
-  <section class="page-view" id="page-reports">
-    <h2 class="section-title">Reports</h2><p class="section-desc">Review store performance for a selected date range.</p>
-    <div class="panel"><div class="field-row"><label style="font-size:11px;color:var(--muted);align-self:center">From <input type="date" id="reportFrom" style="margin-left:5px;border:1px solid var(--line);padding:9px;border-radius:8px"></label><label style="font-size:11px;color:var(--muted);align-self:center">To <input type="date" id="reportTo" style="margin-left:5px;border:1px solid var(--line);padding:9px;border-radius:8px"></label><button class="action-btn" id="applyReport">Apply dates</button></div><div class="notice">Reports are not calculated until the real order schema and order status values are mapped.</div><div class="stats"><article class="stat"><span class="stat-label">Revenue</span><div class="stat-value">৳—</div></article><article class="stat"><span class="stat-label">Orders</span><div class="stat-value">—</div></article><article class="stat"><span class="stat-label">Cancelled</span><div class="stat-value">—</div></article><article class="stat"><span class="stat-label">Profit</span><div class="stat-value">৳—</div><div class="stat-foot">Requires product cost and expenses</div></article></div></div>
-  </section>
-
-  <section class="page-view" id="page-settings">
-    <h2 class="section-title">Settings</h2><p class="section-desc">Connection and access information.</p>
-    <div class="panel"><h3 style="margin-top:0;font-size:14px">Supabase connection</h3><p class="status" id="connectionStatus">Checking connection...</p><p class="status">This page uses the public publishable key. Keep service-role and secret keys out of browser code.</p><button class="action-btn" id="settingsCheck">Test connection</button></div>
-  </section>
-</main>
+    <section class="status-box"><div><h3>Supabase Connection</h3><p id="connectionStatus">Not tested yet. Press “Test Supabase” to check the public API connection.</p></div><span class="pill" id="connectionPill">Not checked</span></section>
+    <p class="notice" id="sectionNotice">Important: This is the admin dashboard interface. The figures are placeholders; order, product, customer, reseller and commission management will be connected safely in the next steps. Never put a Supabase secret/service_role key in this file.</p>
+  </main>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</div>
 <script>
-(function(){
-  'use strict';
-  const SUPABASE_URL = 'https://hdrfxccfqfcsmgbetyxd.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_E7ax_M_YipmRA8JgUZkfig_iiuGX_1x';
-  const $ = id => document.getElementById(id);
-  const headings = {
-    dashboard:['Dashboard overview',"Welcome back! Here's what's happening with your store."],
-    products:['Product management','Manage your catalog and stock.'],
-    categories:['Category management','Organize your product collections.'],
-    orders:['Order management','Search orders and review their progress.'],
-    customers:['Customer management','Customer information is access-controlled.'],
-    resellers:['Reseller center','Track performance and commission records.'],
-    reports:['Sales reports','Review sales for a selected date range.'],
-    settings:['Settings','Connection and access information.']
-  };
-  function setConnection(message,ok){
-    $('connectionStatus').textContent=message;
-    $('sideConnection').innerHTML='<span class="dot"></span>'+ (ok?'Connected':'Needs setup');
-    $('sideConnection').style.background=ok?'#e9f8f1':'#fff2dc';
-    $('sideConnection').style.color=ok?'#16845f':'#a56c12';
-  }
-  function showPage(name){
-    document.querySelectorAll('.page-view').forEach(el=>el.classList.toggle('active',el.id==='page-'+name));
-    document.querySelectorAll('.nav-btn[data-page]').forEach(el=>el.classList.toggle('active',el.dataset.page===name));
-    $('pageHeading').textContent=(headings[name]||headings.dashboard)[0];
-    $('pageSub').textContent=(headings[name]||headings.dashboard)[1];
-    $('sidebar').classList.remove('open');
-  }
-  document.querySelectorAll('.nav-btn[data-page]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.page)));
-  document.querySelectorAll('[data-goto]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.goto)));
-  $('menuToggle').addEventListener('click',()=>$('sidebar').classList.toggle('open'));
-
-  let client=null;
-  async function checkConnection(){
-    setConnection('Checking Supabase connection...',false);
-    try{
-      if(!window.supabase) throw new Error('Supabase library did not load');
-      if(!client) client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-      const {error}=await client.from('categories').select('*').limit(1);
-      if(error){
-        console.error('Supabase connection check:',error);
-        setConnection('Connection check failed: check the categories table, Data API and SELECT policy.',false);
-        return;
-      }
-      setConnection('Supabase connected successfully. Categories table is readable.',true);
-    }catch(err){
-      console.error(err);
-      setConnection('Could not connect. Check internet, project URL and Supabase settings.',false);
-    }
-  }
-  $('refreshBtn').addEventListener('click',checkConnection);
-  $('reloadData').addEventListener('click',checkConnection);
-  $('settingsCheck').addEventListener('click',checkConnection);
-  $('periodSelect').addEventListener('change',()=>{ $('chartNote').textContent='Selected period: '+$('periodSelect').selectedOptions[0].text+'. Chart remains illustrative until real order fields are mapped.'; });
-  ['searchProducts','searchCategories','searchOrders','searchCustomers'].forEach(id=>$(id).addEventListener('click',()=>alert('Live search will be enabled after database columns and admin permissions are mapped.')));
-  $('applyReport').addEventListener('click',()=>alert('Date range selected. Real report calculations require verified order fields and product cost data.'));
-  checkConnection();
-})();
+const SUPABASE_URL = 'https://hdrfxccfqfcsmgbetyxd.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E7ax_M_YipmRA8JgUZkfig_iiuGX_1x';
+async function testConnection(){
+ const status=document.getElementById('connectionStatus'), pill=document.getElementById('connectionPill');
+ status.textContent='Checking Supabase connection…';pill.textContent='Checking';
+ try{
+  const response=await fetch(SUPABASE_URL+'/rest/v1/categories?select=id&limit=1',{headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+SUPABASE_PUBLISHABLE_KEY}});
+  if(response.ok){status.textContent='Connected to Supabase API. This confirms API access only; admin login and data permissions still need setup.';pill.textContent='API reachable';pill.style.background='#e5f7e9';pill.style.color='#216b35';}
+  else{status.textContent='Supabase responded with HTTP '+response.status+'. Check table access policies and API settings.';pill.textContent='Check settings';pill.style.background='#fde8e7';pill.style.color='#9c2b24';}
+ }catch(e){status.textContent='Could not reach Supabase. Check internet connection and project URL.';pill.textContent='Connection failed';pill.style.background='#fde8e7';pill.style.color='#9c2b24';}
+}
+function setRange(btn,label){document.querySelectorAll('.range button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelector('.welcome p').textContent='Showing '+label+' overview. Live statistics will be connected after setup.';}
+function showSection(name,btn){document.getElementById('pageTitle').textContent=name;document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sectionNotice').textContent=name+' section selected. This screen is currently a UI placeholder; the working '+name.toLowerCase()+' tools will be implemented and connected to Supabase in the next steps.';if(window.innerWidth<=650)document.getElementById('sidebar').classList.remove('open');}
 </script>
 </body>
 </html>
