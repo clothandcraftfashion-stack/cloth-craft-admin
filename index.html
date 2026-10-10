@@ -1,1003 +1,446 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html lang="en">
 <head>
-  <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-  <title>CLOTH &amp; CRAFT FASHION</title>
-  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'/>
-  
-  <b:skin><![CDATA[
-    :root {
-      --brand-purple: #c5a059;
-      --brand-purple-dark: #9b7938;
-      --bg-gray: #f7f7f7;
-      --border-color: #e5e0d5;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-    body { background-color: #fff; color: #1e293b; padding-bottom: 75px; }
-
-    /* Header Bar */
-    .top-header {
-      background: #080808;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
-      position: sticky; top: 0; z-index: 1000;
-    }
-    .header-left { display: flex; align-items: center; gap: 15px; }
-    .brand-logo { font-size: 18px; font-weight: 800; color: #c5a059; text-transform: uppercase; }
-    .header-icons { display: flex; align-items: center; gap: 15px; font-size: 18px; color: #f5f5f5; }
-    
-    .section-title { font-size: 16px; font-weight: 700; text-align: center; margin: 15px 0 10px; color: #111111; text-transform: uppercase; }
-
-    /* Multi-color Hero Banner */
-    .hero-banner {
-      background: #0f172a;
-      padding: 30px 15px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .hero-banner h2 { 
-      font-size: 22px; 
-      font-weight: 800; 
-      margin-bottom: 6px; 
-      text-transform: uppercase;
-      background: linear-gradient(45deg, #f2d48a, #c5a059, #fff0c2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-    }
-    .hero-banner p { font-size: 13px; color: #e2e8f0; }
-
-    /* Quick Notice Bar */
-    .quick-notice-bar {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px dashed #ffebaba0;
-      padding: 10px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      margin: 10px 10px 15px;
-      border-radius: 6px;
-    }
-
-    /* Categories Box */
-    .categories-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px 10px; }
-    .cat-card { border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; text-align: center; text-decoration: none; color: #333; }
-    .cat-card img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; }
-    .cat-title { font-size: 12px; font-weight: 600; margin-top: 6px; color: #b58b3b; }
-
-    /* Product Grid */
-    .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; max-width: 900px; margin: 0 auto; }
-    .prod-card { border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #fff; position: relative; display: flex; flex-direction: column; }
-    .discount-badge { position: absolute; top: 8px; left: 8px; background: #111111; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; z-index: 2; }
-    .prod-card img { width: 100%; height: 180px; object-fit: cover; }
-    .prod-body { padding: 8px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; text-align: center; }
-    .prod-title { font-size: 12px; font-weight: 600; color: #1e293b; line-height: 1.3; margin-bottom: 6px; height: 32px; overflow: hidden; }
-    .price-container { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 8px; }
-    .sale-price { font-size: 14px; font-weight: 700; color: #000; }
-    .regular-price { font-size: 12px; color: #94a3b8; text-decoration: line-through; }
-    .btn-order { background: #111111; color: #fff; border: none; padding: 8px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; width: 100%; }
-
-    /* Modal Popup Styles */
-    .product-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: flex-end; z-index: 2000; }
-    .product-modal.active { display: flex; }
-    .modal-content { background: #fff; width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 18px; max-height: 90vh; overflow-y: auto; }
-    
-    /* Code & Price Display */
-    .modal-code-row { font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 4px; }
-    .modal-price-row { font-size: 16px; font-weight: 800; color: #000; margin-bottom: 12px; }
-    .modal-price-row span { color: #dc2626; text-decoration: line-through; font-weight: 500; font-size: 13px; margin-left: 6px; }
-
-    /* Size Selector Box */
-    .size-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #1e293b; }
-    .size-box { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-    .size-btn { border: 1px solid #cbd5e1; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; background: #fff; color: #111; }
-    .size-btn.active { border: 2px solid var(--brand-purple); background: #fdf2f8; color: #b58b3b; position: relative; }
-
-    /* Quantity & Cart Row */
-    .qty-order-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .qty-control { display: flex; border: 1px solid #cbd5e1; border-radius: 4px; overflow: hidden; height: 38px; align-items: center; }
-    .qty-btn { border: none; background: #f1f5f9; width: 32px; height: 100%; font-size: 16px; font-weight: 700; cursor: pointer; color: #334155; }
-    .qty-val { width: 40px; text-align: center; font-size: 13px; font-weight: 700; border: none; outline: none; }
-    .btn-add-cart { border: 1px solid #cbd5e1; background: #fff; color: #111; font-size: 12px; font-weight: 700; padding: 0 12px; height: 38px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-
-    /* Main Order Button */
-    .btn-submit-order { background: #111111; color: #fff; border: none; width: 100%; height: 42px; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; }
-
-    /* Product Feature Checklist Box */
-    .feature-check-box { border: 1px dashed #d97706; background: #fffbeb; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 12px; color: #334155; }
-    .feature-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .feature-item:last-child { margin-bottom: 0; }
-    .feature-item i { color: #16a34a; font-size: 12px; }
-
-    /* Call & Payment Helpline Box */
-    .call-helpline-box { border: 1px dashed var(--brand-purple); background: #fdf2f8; border-radius: 6px; padding: 12px; font-size: 12px; margin-bottom: 12px; }
-    .helpline-title { font-weight: 700; color: #1e293b; margin-bottom: 6px; }
-    .helpline-phone { font-size: 14px; font-weight: 800; color: #000; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; text-decoration: none; }
-    .pay-tag { display: inline-block; border: 1px dotted #dc2626; color: #dc2626; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-right: 5px; margin-top: 4px; }
-
-    .form-input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 8px; font-size: 12px; }
-
-    /* Floating WhatsApp Button */
-    .floating-wa { position: fixed; bottom: 70px; right: 15px; background: #25d366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
-
-    /* App Bottom Navigation Bar */
-    .app-bottom-nav {
-      position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff;
-      display: flex; justify-content: space-around; align-items: center;
-      padding: 6px 0; border-top: 1px solid var(--border-color); z-index: 1000;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-    }
-    .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #64748b; font-size: 10px; font-weight: 500; position: relative; width: 20%; cursor: pointer; }
-    .nav-item i { font-size: 18px; margin-bottom: 2px; }
-    .nav-item.active { color: #b58b3b; font-weight: 700; }
-    .nav-badge { position: absolute; top: -2px; right: 22px; background: #111111; color: #fff; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 10px; }
-
-    /* Footer Section (Matched with Screenshot) */
-    .footer { background: #111111; color: #fff; padding: 25px 15px; margin-top: 20px; font-size: 12px; text-align: left; }
-    
-    .footer-logo-box {
-      background: #c5a059;
-      padding: 8px 16px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-    .footer-logo-box span {
-      font-size: 18px;
-      font-weight: 800;
-      color: #b58b3b;
-      text-transform: uppercase;
-    }
-
-    .footer-about-text {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #f1f5f9;
-      margin-bottom: 20px;
-    }
-
-    /* Real Payment Badges */
-    .payment-section {
-      margin: 15px 0 25px 0;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-    }
-    .payment-title {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      color: #c5a059;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .payment-badges {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-    .payment-badges img {
-      height: 24px;
-      width: 42px;
-      object-fit: contain;
-      background-color: #ffffff;
-      border-radius: 4px;
-      padding: 3px 5px;
-    }
-
-    .footer-grid { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 15px; }
-    .footer-links { flex: 1; }
-    .footer-links h4 { 
-      font-size: 14px; 
-      margin-bottom: 10px; 
-      font-weight: 700; 
-      position: relative;
-      padding-bottom: 4px;
-    }
-    .footer-links h4::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 30px;
-      height: 2px;
-      background: #ffffff;
-    }
-    .footer-links a { color: #e2e8f0; text-decoration: none; display: block; margin-bottom: 6px; font-size: 12px; cursor: pointer; }
-    
-    .follow-us-section { margin-top: 10px; margin-bottom: 15px; }
-    .follow-us-section h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
-    
-    .social-icons { display: flex; gap: 8px; font-size: 14px; }
-    .social-icons a { 
-      color: #fff; 
-      border: 1px solid rgba(255,255,255,0.4); 
-      width: 36px; 
-      height: 36px; 
-      border-radius: 4px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      text-decoration: none; 
-      transition: 0.3s;
-    }
-    .social-icons a:hover { background: rgba(255,255,255,0.2); }
-
-    .address-box { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 11px; line-height: 1.5; }
-
-    .icon-btn{position:relative;background:transparent;border:0;color:#c5a059;font-size:18px;padding:5px;cursor:pointer}
-    .tiny-count{position:absolute;right:-5px;top:-3px;background:#c5a059;color:#111;border-radius:50%;font-size:9px;min-width:15px;height:15px;display:flex;align-items:center;justify-content:center}
-    .search-bar-wrap{display:flex;gap:8px;padding:10px;background:#111;position:sticky;top:56px;z-index:999}
-    .search-bar-wrap .form-input{margin:0;background:#fff;color:#111}
-    .gold-btn{background:#c5a059;color:#111;border:0;border-radius:5px;padding:0 12px;font-weight:700}
-    .category-menu{position:fixed;z-index:3000;top:58px;left:10px;width:min(270px,85vw);padding:12px;background:#101010;border:1px solid #c5a059;border-radius:10px;box-shadow:0 12px 30px #0004}
-    .category-menu a{display:block;color:#fff;text-decoration:none;padding:11px;border-bottom:1px solid #333}.category-menu a:last-child{border-bottom:0;color:#c5a059}
-    .prod-card{box-shadow:0 3px 14px #0000000a}.prod-card img{cursor:pointer}
-    .favorite-btn{position:absolute;top:8px;right:8px;z-index:3;border:0;background:#fff;color:#111;border-radius:50%;width:34px;height:34px;box-shadow:0 2px 8px #0002;cursor:pointer;font-size:17px}.favorite-btn.is-favorite{color:#c62828}
-    .product-modal{align-items:center;padding:12px}.modal-content{border:1px solid #e6d6ad;max-height:92vh;border-radius:14px}
-    .product-gallery{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0 14px}.product-gallery img{width:100%;height:145px;object-fit:cover;border-radius:8px;background:#f2f2f2}.product-description{background:#f8f7f3;border:1px solid #e8dfcb;border-radius:9px;padding:12px;margin:14px 0;font-size:13px;line-height:1.7;color:#333}.product-description h4{color:#8a6827;margin-bottom:5px;font-size:14px}
-    .footer-grid{align-items:flex-start}.footer-links h4{color:#c5a059}.footer-links h4:after{background:#c5a059}.footer-links a{line-height:1.7}.footer-links a:hover{color:#c5a059}
-    .payment-title{color:#c5a059}.payment-badges img{height:30px;width:55px;object-fit:contain;background:#fff;border-radius:5px;padding:4px}
-    .social-icons a{border-color:#c5a059;color:#c5a059}.address-box{border:1px solid #c5a059}
-    .app-bottom-nav{background:#080808;border-top:1px solid #c5a059}.nav-item{color:#ddd}.nav-item.active{color:#c5a059}.nav-badge{background:#c5a059;color:#111}
-    .info-page{position:fixed;inset:0;z-index:5000;background:#f8f8f6;color:#222;display:none;overflow-y:auto;padding:22px 16px 90px}.info-page.active{display:block}.info-page-head{background:#080808;color:#c5a059;padding:18px;border-radius:12px;margin-bottom:18px}.info-page-head button{float:right;background:transparent;color:#c5a059;border:0;font-size:22px}.info-page h2{font-size:22px}.info-page h3{margin:18px 0 7px;color:#8a6827}.info-page p,.info-page li{font-size:14px;line-height:1.8}.info-page .info-card{background:#fff;border:1px solid #e5dcc8;border-radius:10px;padding:14px;margin:10px 0;box-shadow:0 4px 15px #00000008}
-    .auth-page{position:fixed;inset:0;z-index:5001;background:#080808;color:#fff;display:none;overflow-y:auto;padding:25px 18px 50px}.auth-page.active{display:block}.auth-card{max-width:430px;margin:20px auto;background:#fff;color:#222;border-radius:16px;padding:22px;border-top:4px solid #c5a059;box-shadow:0 15px 50px #0005}.auth-brand{text-align:center;color:#b58b3b;font-weight:800;font-size:18px;margin-bottom:20px}.auth-card h2{text-align:center;margin-bottom:8px}.auth-card p{text-align:center;color:#666;font-size:13px;margin-bottom:18px}.auth-actions{display:flex;gap:8px;margin-bottom:12px}.auth-actions button{flex:1;padding:10px;border:1px solid #c5a059;border-radius:6px;background:#fff;cursor:pointer;font-weight:700}.auth-actions button.active{background:#c5a059;color:#111}.auth-close{display:block;margin:0 auto 15px;background:transparent;color:#c5a059;border:1px solid #c5a059;border-radius:20px;padding:7px 14px}
-    .listing-page{position:fixed;inset:0;z-index:5002;background:#f8f8f6;display:none;overflow-y:auto;padding:20px 14px 90px}.listing-page.active{display:block}.listing-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.listing-head h2{color:#111}.listing-head button{border:0;background:#111;color:#c5a059;padding:8px 12px;border-radius:6px}.listing-item{display:flex;gap:12px;background:#fff;border:1px solid #e7dfcf;border-radius:10px;padding:10px;margin:8px 0;align-items:center}.listing-item img{width:76px;height:90px;object-fit:cover;border-radius:6px}.listing-item .listing-info{flex:1;font-size:13px}.listing-item button{background:#111;color:#c5a059;border:0;padding:7px 9px;border-radius:5px;margin-top:6px}.reseller-hero{background:#0a0a0a;color:#fff;border:1px solid #c5a059;border-radius:14px;padding:20px;text-align:center}.reseller-hero h2{color:#c5a059}.reseller-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.reseller-stat{background:#fff;border:1px solid #e5dcc8;border-radius:10px;padding:13px}.reseller-stat strong{display:block;font-size:18px;color:#8a6827}.reseller-steps{line-height:1.8;font-size:13px}
-    @media(min-width:768px){.product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:18px;}.prod-card img{height:250px}.categories-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-width:1100px;margin:auto}.footer{padding:35px max(24px,calc((100% - 1100px)/2))}.product-gallery img{height:210px}.modal-content{max-width:650px}}
-  ]]></b:skin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cloth & Craft Fashion | Admin Panel</title>
+<style>
+:root{--gold:#d4af55;--black:#151515;--bg:#f5f6f8;--white:#fff;--muted:#777;--line:#e8e8e8}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#222}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--black);color:white;padding:22px 15px;flex-shrink:0}
+.brand{padding:8px 10px 24px;border-bottom:1px solid #353535;margin-bottom:20px}
+.brand strong{font-size:18px;color:var(--gold);letter-spacing:1px}
+.brand small{display:block;color:#bbb;margin-top:7px}
+.nav button{display:block;width:100%;padding:13px;border:0;background:transparent;color:#ccc;text-align:left;border-radius:8px;margin:4px 0}
+.nav button:hover,.nav button.active{background:var(--gold);color:#171717;font-weight:bold}
+.main{flex:1;min-width:0}
+.top{height:72px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px}
+.top h2{font-size:19px}
+.content{padding:25px;max-width:1450px;margin:auto}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.heading h1{font-size:25px;margin:0}
+.heading p{color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:20px;min-width:0}
+.card small{color:var(--muted)}
+.number{font-size:28px;font-weight:bold;margin-top:12px}
+.panel{margin-bottom:18px}
+.panel h3{margin-top:0}
+.btn{padding:10px 14px;border:1px solid #ddd;border-radius:8px;background:white;font-weight:bold;font-size:13px}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#171717}
+.btn.dark{background:#171717;color:white}
+.btn:disabled{opacity:.5}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.toolbar input{flex:1;min-width:180px}
+input,select{padding:11px;border:1px solid #ddd;border-radius:8px;background:white;max-width:100%}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:13px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
+th{background:#fafafa;color:#666;font-size:11px;text-transform:uppercase}
+.empty{text-align:center;color:#888;padding:28px}
+.notice{padding:12px 14px;background:#fff8e5;border:1px solid #f0dfac;border-radius:8px;font-size:13px;line-height:1.6;margin-bottom:15px}
+.good{background:#eaf7ef;border-color:#c8e7d2}
+.bad{background:#fff0f0;border-color:#f0cccc}
+.formrow{display:flex;gap:10px;flex-wrap:wrap}
+.formrow input{flex:1;min-width:160px}
+.hidden{display:none!important}
+.mobile-menu{display:none}
+@media(max-width:850px){
+ .sidebar{width:210px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .content{padding:15px}
+ .top{padding:0 15px}
+}
+@media(max-width:600px){
+ .layout{display:block}
+ .sidebar{display:none;width:100%;padding:12px}
+ .sidebar.open{display:block}
+ .mobile-menu{display:inline-block}
+ .top{height:65px}
+ .top h2{font-size:15px}
+ .stats{gap:9px}
+ .card{padding:13px}
+ .number{font-size:23px}
+ .content{padding:13px}
+ .heading h1{font-size:22px}
+}
+</style>
 </head>
 <body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+ <div class="brand">
+  <strong>C&C</strong>
+  <small>CLOTH & CRAFT FASHION</small>
+  <small>ADMINISTRATION</small>
+ </div>
+ <nav class="nav" id="nav">
+  <button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+  <button data-page="categories">▤ &nbsp; Categories</button>
+  <button data-page="products">◈ &nbsp; Products</button>
+  <button data-page="orders">▣ &nbsp; Orders</button>
+  <button data-page="customers">♙ &nbsp; Customers</button>
+  <button data-page="resellers">♧ &nbsp; Resellers</button>
+  <button data-page="reports">▥ &nbsp; Reports</button>
+  <button data-page="settings">⚙ &nbsp; Settings</button>
+ </nav>
+ <div style="margin-top:25px;color:#999;font-size:11px;line-height:1.8">
+  CLOTH & CRAFT FASHION<br><span style="color:#d4af55">ADMIN PANEL</span>
+ </div>
+</aside>
 
-  <!-- Hidden Section for Blogger Requirement -->
-  <div style='display:none;'>
-    <b:section id='main' showaddelement='yes'/>
-  </div>
-
-<!-- Top Header -->
-<header class='top-header' id='home' style='display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #fff; border-bottom: 1px solid #eee;'>
-  <div class='header-left' style='display: flex; align-items: center; gap: 10px;'>
-    <i class='fa-solid fa-bars' style='font-size: 20px; cursor: pointer;'/>
-  </div>
-  
-  <!-- শপ&#2503;র ন&#2494;ম ও ট&#2509;য&#2494;গল&#2494;ইন -->
-  <div class='header-center' style='text-align: center; flex-grow: 1; line-height: 1.2;'>
-    <h1 style='font-family: &apos;Playfair Display&apos;, Georgia, serif; font-size: 15px; font-weight: 900; color: #111111; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;'>Cloth &amp; Craft Fashion</h1>
-    <span style='font-family: &apos;Poppins&apos;, sans-serif; font-size: 8.5px; font-weight: 600; color: #C5A059; letter-spacing: 2px; text-transform: uppercase; display: block; margin-top: 1px;'>100% Premium Quality</span>
-  </div>
-
-  <!-- ড&#2494;ন প&#2494;শ&#2503;র আইকন -->
-  <div class='header-icons' style='display: flex; align-items: center; gap: 15px;'>
-    <i class='fa-solid fa-magnifying-glass' style='font-size: 18px; cursor: pointer;'/>
-    <i class='fa-solid fa-cart-shopping' style='font-size: 18px; cursor: pointer;'/>
-  </div>
+<main class="main">
+<header class="top">
+ <div style="display:flex;align-items:center;gap:10px">
+  <button class="btn mobile-menu" id="menuBtn">☰</button>
+  <h2 style="margin:0" id="topTitle">Dashboard</h2>
+ </div>
+ <div style="display:flex;align-items:center;gap:9px">
+  <span id="connection" style="font-size:12px;color:#777">Not connected</span>
+  <span style="background:#171717;color:#d4af55;padding:10px;border-radius:9px;font-weight:bold">C&C</span>
+ </div>
 </header>
 
+<div class="content">
+<div id="message" class="notice hidden"></div>
 
+<section id="page-dashboard" class="page">
+ <div class="heading">
+  <div><h1>Dashboard</h1><p>Welcome to your store administration.</p></div>
+  <button class="btn gold" onclick="refreshAll()">↻ Refresh Data</button>
+ </div>
+ <div class="stats">
+  <div class="card"><small>Total Categories</small><div class="number" id="statCategories">—</div></div>
+  <div class="card"><small>Total Products</small><div class="number" id="statProducts">—</div></div>
+  <div class="card"><small>Total Orders</small><div class="number" id="statOrders">—</div></div>
+  <div class="card"><small>Total Profiles</small><div class="number" id="statProfiles">—</div></div>
+ </div>
+ <div class="panel">
+  <h3>Store Overview</h3>
+  <p style="color:#777;font-size:13px;line-height:1.8">Manage your products, categories and orders from one place. Connect to Supabase to load your store data.</p>
+  <button class="btn gold" onclick="testConnection()">Test Supabase Connection</button>
+  <button class="btn" onclick="showPage('orders')">View Orders →</button>
+ </div>
+ <div class="panel">
+  <h3>Recent Orders</h3>
+  <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Date</th></tr></thead><tbody id="recentOrders"><tr><td colspan="4" class="empty">Connect Supabase to load orders.</td></tr></tbody></table></div>
+ </div>
+</section>
 
-<style>
-  /* ম&#2507;ব&#2494;ইল ভ&#2495;উয়&#2503;র জন&#2509;য ড&#2495;ফল&#2509;ট স&#2509;ট&#2494;ইল */
-  .hero-banner {
-    text-align: center;
-    padding: 18px 15px;
-    background: #111111;
-    border-bottom: 2px solid #c5a059;
-  }
-  
-  .hero-banner h2 {
-    font-family: &#39;Playfair Display&#39;, Georgia, serif;
-    font-size: 18px;
-    color: #c5a059;
-    margin-bottom: 5px;
-  }
+<section id="page-categories" class="page hidden">
+ <div class="heading"><div><h1>Categories</h1><p>View and add product categories.</p></div></div>
+ <div class="panel">
+  <h3>Add Category</h3>
+  <form id="categoryForm" class="formrow">
+   <input id="categoryName" placeholder="Category name in English" required>
+   <button class="btn gold" type="submit">+ Add Category</button>
+  </form>
+  <p style="font-size:12px;color:#777">Requires a compatible categories table and INSERT permission.</p>
+ </div>
+ <div class="panel">
+  <div class="toolbar"><input id="categorySearch" placeholder="Search categories..." oninput="filterTable('categoryTable',this.value)"><button class="btn" onclick="loadCategories()">↻ Refresh</button></div>
+  <div class="table-wrap"><table id="categoryTable"><thead><tr><th>ID</th><th>Name</th><th>Status</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div>
+ </div>
+</section>
 
-  .hero-banner p {
-    font-family: &#39;Poppins&#39;, sans-serif;
-    font-size: 11px;
-    color: #f0f0f0;
-  }
+<section id="page-products" class="page hidden">
+ <div class="heading"><div><h1>Products</h1><p>View products stored in Supabase.</p></div><button class="btn" onclick="loadProducts()">↻ Refresh</button></div>
+ <div class="panel">
+  <div class="toolbar"><input placeholder="Search products..." oninput="filterTable('productTable',this.value)"></div>
+  <div class="table-wrap"><table id="productTable"><thead><tr><th>ID</th><th>Product</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead><tbody><tr><td colspan="5" class="empty">No data loaded.</td></tr></tbody></table></div>
+ </div>
+ <div class="notice">This version displays products. Product image uploads and full add/edit/delete operations require matching table fields and storage policies.</div>
+</section>
 
-  /* বড় স&#2509;ক&#2509;র&#2495;ন ব&#2494; প&#2495;স&#2495;র জন&#2509;য ম&#2495;ড&#2495;য়&#2494; ক&#2507;য়&#2494;র&#2495; */
-  @media (min-width: 768px) {
-    .top-header {
-      padding: 15px 30px !important;
-    }
-    
-    .header-center h1 {
-      font-size: 22px !important;
-    }
+<section id="page-orders" class="page hidden">
+ <div class="heading"><div><h1>Orders</h1><p>View customer orders from your database.</p></div><button class="btn" onclick="loadOrders()">↻ Refresh</button></div>
+ <div class="panel">
+  <div class="toolbar"><input placeholder="Search orders..." oninput="filterTable('orderTable',this.value)"></div>
+  <div class="table-wrap"><table id="orderTable"><thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody><tr><td colspan="5" class="empty">No data loaded.</td></tr></tbody></table></div>
+ </div>
+ <div class="notice">Orders can be displayed when the database permits access. Updating status and confirming orders needs the exact schema and UPDATE policy.</div>
+</section>
 
-    .header-center span {
-      font-size: 11px !important;
-    }
+<section id="page-customers" class="page hidden">
+ <div class="heading"><div><h1>Customers</h1><p>Profiles available to this admin account.</p></div><button class="btn" onclick="loadProfiles()">↻ Refresh</button></div>
+ <div class="panel"><div class="table-wrap"><table id="customerTable"><thead><tr><th>ID</th><th>Name</th><th>Role</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div></div>
+</section>
 
-    .hero-banner h2 {
-      font-size: 28px;
-    }
-  }
-</style>
-<div class='custom-banner-slider' id='bannerSlider'>
-  <div class='slider-container' id='sliderContainer'>
-    
-    <!-- ব&#2509;য&#2494;ন&#2494;র ১ -->
-    <div class='slide'>
-      <img alt='Men Collection' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0LauRdQrPN3BUMYqUTjuiK3R9TeUyypOoz0mvHoN7TCXr08LouNOO2cEujB5qelrK-jNR2VjsTwf9e8rh2KsYO42xt-_sHoedmcf3Gef3QoZtTe8UFuWbV74xD2MBQ0WsNMzNjTMLE1L9x-VXhMNPjp3Sp5OgakYIfebVbTxXK5CHbl-PF54bqLPB3d0/s1600/boys%20benner.png'/>
-    </div>
-    
-    <!-- ব&#2509;য&#2494;ন&#2494;র ২ -->
-    <div class='slide'>
-      <img alt='Women Collection' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWEo5Y133e-LrgHm9QyyRriVEgDXakkB8NprSHqJBrkAy74bx1sjcXzhNj9nIKFHYEdlAW2usnhtzu_KXDXnmFUO4jzLUilb5BlYA7OC9aIcj9KoO41JXceyhYA1sU7OH9pWuaEc1c8WVIlXAXv7ZDFlBIIw9V8iNcm39xO-6fz_EqTz0bqza6Ma2mu7k/s1600/girl%20benner.png'/>
-    </div>
-    
-    <!-- ব&#2509;য&#2494;ন&#2494;র ৩ -->
-    <div class='slide'>
-      <img alt='Special Collection' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh96dbUvg6JkwgyiQnHAMmhwxU-Eu9BYFzvNrBWflAEgBCoBRvuN_lQBTYMCABKB9kurnO4f0mbN5crd88W6Cb7eTz55TVYC8ZqJoUNiUgymTgB0tRUGVDqb-BIJDw2GQBtidS61Vck-Mqy5nDSXJEaLQ7KBZCo2BswW-W90XdT-biE1PKV6cqlf7Ufpx4/s1600/3.png'/>
-    </div>
+<section id="page-resellers" class="page hidden">
+ <div class="heading"><div><h1>Resellers</h1><p>Reseller management overview.</p></div><button class="btn" onclick="loadProfiles()">↻ Refresh Profiles</button></div>
+ <div class="panel">
+  <h3>Commission Tier Rules</h3>
+  <div class="table-wrap"><table><thead><tr><th>Completed Orders</th><th>Commission</th></tr></thead><tbody>
+  <tr><td>Orders 1–20</td><td>8%</td></tr>
+  <tr><td>Orders 21–50</td><td>10%</td></tr>
+  <tr><td>Orders 51–100</td><td>12%</td></tr>
+  <tr><td>Orders 101+</td><td>15%</td></tr>
+  </tbody></table></div>
+  <p style="font-size:12px;color:#777">These are display rules only. Automatic commission calculation and referral rewards are not implemented in this version.</p>
+ </div>
+ <div class="panel"><h3>Profiles</h3><div class="table-wrap"><table id="resellerTable"><thead><tr><th>ID</th><th>Name</th><th>Role</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div></div>
+</section>
 
-  </div>
+<section id="page-reports" class="page hidden">
+ <div class="heading"><div><h1>Reports</h1><p>Basic store data overview.</p></div><button class="btn" onclick="refreshAll()">↻ Refresh</button></div>
+ <div class="stats">
+  <div class="card"><small>Categories</small><div class="number" id="reportCategories">—</div></div>
+  <div class="card"><small>Products</small><div class="number" id="reportProducts">—</div></div>
+  <div class="card"><small>Orders</small><div class="number" id="reportOrders">—</div></div>
+  <div class="card"><small>Profiles</small><div class="number" id="reportProfiles">—</div></div>
+ </div>
+ <div class="notice">These are record counts, not financial sales reports. Revenue and commission reports require confirmed order fields.</div>
+</section>
 
-  <div class='slider-dots' id='sliderDots'>
-    <span class='dot active' onclick='currentSlide(0)'/>
-    <span class='dot' onclick='currentSlide(1)'/>
-    <span class='dot' onclick='currentSlide(2)'/>
-  </div>
+<section id="page-settings" class="page hidden">
+ <div class="heading"><div><h1>Settings</h1><p>Supabase connection and administrator sign-in.</p></div></div>
+ <div class="panel">
+  <h3>Database Connection</h3>
+  <p style="font-size:13px;color:#777">The project URL and publishable key are configured in this HTML file.</p>
+  <button class="btn gold" onclick="testConnection()">Test Supabase</button>
+  <button class="btn" onclick="refreshAll()">Refresh All Data</button>
+ </div>
+ <div class="panel">
+  <h3>Admin Login</h3>
+  <form id="loginForm">
+   <p><input type="email" id="loginEmail" placeholder="Admin email" required style="width:100%"></p>
+   <p><input type="password" id="loginPassword" placeholder="Password" required style="width:100%"></p>
+   <button class="btn gold" type="submit">Sign In</button>
+   <button class="btn" type="button" onclick="signOut()">Sign Out</button>
+  </form>
+  <p id="loginStatus" style="font-size:12px;color:#777">Not signed in.</p>
+ </div>
+</section>
+</div>
+</main>
 </div>
 
-<style>
-.custom-banner-slider {
-  width: 100%;
-  max-width: 1200px;
-  margin: 10px auto;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  border-radius: 8px;
-}
-.slider-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
-.slide {
-  min-width: 100%;
-  box-sizing: border-box;
-}
-.slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.slider-dots {
-  text-align: center;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  z-index: 10;
-}
-.slider-dots .dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin: 0 4px;
-  background: rgba(255,255,255,0.6);
-  border-radius: 50%;
-  cursor: pointer;
-}
-.slider-dots .dot.active {
-  background: #C5A059;
-  width: 20px;
-  border-radius: 4px;
-}
-</style>
-
 <script>
-//<![CDATA[
-var slideIndex = 0;
-var slides = document.querySelectorAll('.slide');
-var dots = document.querySelectorAll('.dot');
-var sliderContainer = document.getElementById('sliderContainer');
+"use strict";
 
-function showSlide(index) {
-  if (index >= slides.length) { slideIndex = 0; }
-  if (index < 0) { slideIndex = slides.length - 1; }
-  sliderContainer.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
-  dots.forEach(function(dot, i) {
-    if (i === slideIndex) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
-    }
+/* Supabase project configuration */
+const SUPABASE_URL = "https://hdrfxccfqfcsmgbetyxd.supabase.co";
+const SUPABASE_KEY = "sb_publishable_E7ax_M_YipmRA8JgUZkfig_iiuGX_1x";
+
+let accessToken = "";
+let currentUser = null;
+let cached = {categories:[],products:[],orders:[],profiles:[]};
+
+function notify(message, type=""){
+ const box=document.getElementById("message");
+ box.textContent=message;
+ box.className="notice "+(type==="good"?"good":type==="bad"?"bad":"");
+ box.classList.remove("hidden");
+}
+function clearNotify(){
+ document.getElementById("message").classList.add("hidden");
+}
+function showPage(page){
+ document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+ const section=document.getElementById("page-"+page);
+ if(section)section.classList.remove("hidden");
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ document.getElementById("topTitle").textContent=page.charAt(0).toUpperCase()+page.slice(1);
+ document.getElementById("sidebar").classList.remove("open");
+ clearNotify();
+}
+document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
+
+function headers(extra={}){
+ return Object.assign({
+  "apikey":SUPABASE_KEY,
+  "Authorization":"Bearer "+(accessToken||SUPABASE_KEY),
+  "Content-Type":"application/json"
+ },extra);
+}
+async function api(path,options={}){
+ const response=await fetch(SUPABASE_URL+"/rest/v1/"+path,{
+  ...options,
+  headers:headers(options.headers||{})
+ });
+ const raw=await response.text();
+ let data=null;
+ try{data=raw?JSON.parse(raw):null}catch(e){data=raw}
+ if(!response.ok)throw new Error((data&&data.message)||("HTTP "+response.status+": "+raw));
+ return data;
+}
+async function auth(path,options={}){
+ const response=await fetch(SUPABASE_URL+"/auth/v1/"+path,{
+  ...options,
+  headers:headers(options.headers||{})
+ });
+ const raw=await response.text();
+ let data=null;
+ try{data=raw?JSON.parse(raw):null}catch(e){data=raw}
+ if(!response.ok)throw new Error((data&&data.msg)||(data&&data.message)||("HTTP "+response.status));
+ return data;
+}
+function setConnection(text,ok=false){
+ const el=document.getElementById("connection");
+ el.textContent=text;
+ el.style.color=ok?"#18845b":"#b07822";
+}
+async function testConnection(){
+ try{
+  await api("categories?select=*&limit=1");
+  setConnection("Connected",true);
+  notify("Supabase connection successful. Categories table is accessible.","good");
+ }catch(e){
+  setConnection("Connection issue");
+  notify("Connection failed: "+e.message+". Check the table, API key and RLS policies.","bad");
+ }
+}
+function safe(value){
+ return String(value??"—").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function first(obj,keys){
+ for(const key of keys)if(obj&&obj[key]!==undefined&&obj[key]!==null)return obj[key];
+ return "—";
+}
+function rows(tableId,items,columns,emptyText){
+ const body=document.querySelector("#"+tableId+" tbody");
+ if(!body)return;
+ if(!items||!items.length){
+  body.innerHTML='<tr><td colspan="'+columns.length+'" class="empty">'+safe(emptyText)+'</td></tr>';
+  return;
+ }
+ body.innerHTML=items.map(item=>"<tr>"+columns.map(col=>"<td>"+safe(col(item))+"</td>").join("")+"</tr>").join("");
+}
+function updateStats(){
+ const counts={
+  Categories:cached.categories.length,
+  Products:cached.products.length,
+  Orders:cached.orders.length,
+  Profiles:cached.profiles.length
+ };
+ for(const [key,value] of Object.entries(counts)){
+  const id="stat"+key;
+  const el=document.getElementById(id);
+  if(el)el.textContent=value;
+  const report=document.getElementById("report"+key);
+  if(report)report.textContent=value;
+ }
+}
+async function loadCategories(){
+ try{
+  const data=await api("categories?select=*&limit=500");
+  cached.categories=data||[];
+  rows("categoryTable",cached.categories,[
+   x=>first(x,["id","category_id"]),
+   x=>first(x,["name","title","category_name"]),
+   x=>first(x,["status","is_active"])
+  ],"No categories found.");
+  updateStats();
+ }catch(e){notify("Could not load categories: "+e.message,"bad");}
+}
+async function loadProducts(){
+ try{
+  const data=await api("products?select=*&limit=500");
+  cached.products=data||[];
+  rows("productTable",cached.products,[
+   x=>first(x,["id","product_id","sku"]),
+   x=>first(x,["name","title","product_name"]),
+   x=>first(x,["price","selling_price"]),
+   x=>first(x,["stock","quantity","stock_quantity"]),
+   x=>first(x,["status","is_active"])
+  ],"No products found.");
+  updateStats();
+ }catch(e){notify("Could not load products: "+e.message,"bad");}
+}
+async function loadOrders(){
+ try{
+  const data=await api("orders?select=*&order=created_at.desc&limit=200");
+  cached.orders=data||[];
+  rows("orderTable",cached.orders,[
+   x=>first(x,["order_code","id","order_id"]),
+   x=>first(x,["customer_name","name","customer_id","user_id"]),
+   x=>first(x,["total_amount","total","grand_total"]),
+   x=>first(x,["status","order_status"]),
+   x=>first(x,["created_at","order_date"])
+  ],"No orders found.");
+  rows("recentOrders",cached.orders.slice(0,8),[
+   x=>first(x,["order_code","id","order_id"]),
+   x=>first(x,["customer_name","name","customer_id","user_id"]),
+   x=>first(x,["status","order_status"]),
+   x=>first(x,["created_at","order_date"])
+  ],"No orders found.");
+  updateStats();
+ }catch(e){notify("Could not load orders: "+e.message,"bad");}
+}
+async function loadProfiles(){
+ try{
+  const data=await api("profiles?select=*&limit=500");
+  cached.profiles=data||[];
+  const cols=[
+   x=>first(x,["id","user_id"]),
+   x=>first(x,["full_name","name","display_name","email"]),
+   x=>first(x,["role","account_type","user_type"])
+  ];
+  rows("customerTable",cached.profiles,cols,"No accessible profiles found.");
+  const resellerList=cached.profiles.filter(x=>String(first(x,["role","account_type","user_type"])).toLowerCase().includes("reseller"));
+  rows("resellerTable",resellerList,cols,"No reseller profiles found, or access is restricted.");
+  updateStats();
+ }catch(e){notify("Could not load profiles: "+e.message,"bad");}
+}
+async function refreshAll(){
+ clearNotify();
+ await Promise.allSettled([loadCategories(),loadProducts(),loadOrders(),loadProfiles()]);
+ notify("Refresh finished. If any section is empty, check its table and RLS permissions.","good");
+}
+document.getElementById("categoryForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const input=document.getElementById("categoryName");
+ const name=input.value.trim();
+ if(!name)return;
+ try{
+  await api("categories",{method:"POST",headers:{"Prefer":"return=minimal"},body:JSON.stringify({name:name})});
+  input.value="";
+  notify("Category added successfully.","good");
+  await loadCategories();
+ }catch(err){
+  notify("Could not add category: "+err.message+". Your categories table may use a different name column or INSERT may be blocked by RLS.","bad");
+ }
+});
+function filterTable(tableId,value){
+ const table=document.getElementById(tableId);
+ if(!table)return;
+ const q=value.toLowerCase();
+ table.querySelectorAll("tbody tr").forEach(row=>{
+  row.style.display=row.innerText.toLowerCase().includes(q)?"":"none";
+ });
+}
+document.getElementById("loginForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const email=document.getElementById("loginEmail").value.trim();
+ const password=document.getElementById("loginPassword").value;
+ const status=document.getElementById("loginStatus");
+ try{
+  const result=await auth("token?grant_type=password",{
+   method:"POST",
+   body:JSON.stringify({email,password})
   });
+  accessToken=result.access_token;
+  currentUser=result.user;
+  status.textContent="Signed in as "+(currentUser.email||email);
+  notify("Signed in. Database access still depends on your RLS policies.","good");
+  await refreshAll();
+ }catch(err){
+  status.textContent="Sign-in failed.";
+  notify("Login failed: "+err.message,"bad");
+ }
+});
+async function signOut(){
+ accessToken="";
+ currentUser=null;
+ document.getElementById("loginStatus").textContent="Signed out.";
+ notify("Signed out.","good");
 }
-
-function nextSlide() {
-  slideIndex++;
-  showSlide(slideIndex);
-}
-
-function currentSlide(index) {
-  slideIndex = index;
-  showSlide(slideIndex);
-}
-
-var autoPlay = setInterval(nextSlide, 4000);
-
-var bannerElement = document.getElementById('bannerSlider');
-bannerElement.addEventListener('mouseenter', function() { clearInterval(autoPlay); });
-bannerElement.addEventListener('mouseleave', function() { autoPlay = setInterval(nextSlide, 4000); });
-//]]>
+setConnection("Not connected");
 </script>
-  <!-- Categories Section -->
-  <div class='section-title' id='categorySection'>Categories</div>
-  <div class='categories-grid'>
-    <a class='cat-card' href='#'>
-      <img alt='Men&apos;s Pants' src='https://via.placeholder.com/150'/>
-      <div class='cat-title'>Men&#39;s Pants</div>
-    </a>
-    <a class='cat-card' href='#'>
-      <img alt='Men&apos;s Winter' src='https://via.placeholder.com/150'/>
-      <div class='cat-title'>Men&#39;s Winter Collection</div>
-    </a>
-    <a class='cat-card' href='#'>
-      <img alt='Women&apos;s Dress &amp; Bangles' src='https://via.placeholder.com/150'/>
-      <div class='cat-title'>Women&#39;s Dress &amp; Bangles</div>
-    </a>
-    <a class='cat-card' href='#'>
-      <img alt='Women&apos;s Winter' src='https://via.placeholder.com/150'/>
-      <div class='cat-title'>Women&#39;s Winter Collection</div>
-    </a>
-  </div>
-
-  <!-- Product Grid Section -->
-  <div class='section-title' id='productsSection'>Featured Products</div>
-  <main class='product-grid' id='productGrid'>
-    
-    <!-- Baggy Pants -->
-    <div class='prod-card' data-type='pants'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>NEW</span>
-      <img alt='Baggy Pants' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>Men&#39;s Baggy Pants</div>
-        <div class='price-container'>
-          <span class='sale-price'>1200 BDT</span>
-          <span class='regular-price'>1800 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;Men\&apos;s Baggy Pants&apos;, 1200, 1800, &apos;2101&apos;, &apos;pants&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-    <!-- China Formal Pants -->
-    <div class='prod-card' data-type='pants'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>POPULAR</span>
-      <img alt='China Formal Pants' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>China Formal Pants</div>
-        <div class='price-container'>
-          <span class='sale-price'>1400 BDT</span>
-          <span class='regular-price'>2000 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;China Formal Pants&apos;, 1400, 2000, &apos;2102&apos;, &apos;pants&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-    <!-- Cargo Short Pants -->
-    <div class='prod-card' data-type='pants'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>OFFER</span>
-      <img alt='Cargo Short Pants' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>Cargo Short Pants</div>
-        <div class='price-container'>
-          <span class='sale-price'>850 BDT</span>
-          <span class='regular-price'>1200 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;Cargo Short Pants&apos;, 850, 1200, &apos;2103&apos;, &apos;pants&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-    <!-- Men's Winter Collection -->
-    <div class='prod-card' data-type='winter'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>WINTER</span>
-      <img alt='Men&apos;s Winter Jacket' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>Men&#39;s Winter Jacket</div>
-        <div class='price-container'>
-          <span class='sale-price'>2200 BDT</span>
-          <span class='regular-price'>3200 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;Men\&apos;s Winter Jacket&apos;, 2200, 3200, &apos;2104&apos;, &apos;jacket&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-    <!-- Women's Dress & Bangles -->
-    <div class='prod-card' data-type='dress'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>NEW</span>
-      <img alt='Women&apos;s Dress &amp; Bangles' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>Women&#39;s Three-Piece &amp; Bangles Set</div>
-        <div class='price-container'>
-          <span class='sale-price'>1650 BDT</span>
-          <span class='regular-price'>2500 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;Women\&apos;s Three-Piece &amp; Bangles Set&apos;, 1650, 2500, &apos;2105&apos;, &apos;dress&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-    <!-- Women's Winter Collection -->
-    <div class='prod-card' data-type='winter'>
-      <button class='favorite-btn' onclick='toggleFavorite(this,event)' aria-label='Add to favorites'><i class='fa-regular fa-heart'/></button>
-      <span class='discount-badge'>WINTER</span>
-      <img alt='Women&apos;s Winter Wear' src='https://via.placeholder.com/200'/>
-      <div class='prod-body'>
-        <div class='prod-title'>Women&#39;s Winter Collection</div>
-        <div class='price-container'>
-          <span class='sale-price'>1500 BDT</span>
-          <span class='regular-price'>2200 BDT</span>
-        </div>
-        <button class='btn-order' onclick='openOrderModal(&apos;Women\&apos;s Winter Collection&apos;, 1500, 2200, &apos;2106&apos;, &apos;jacket&apos;)'>
-          Order Now
-        </button>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Order Popup Modal -->
-  <div class='product-modal' id='orderModal'>
-    <div class='modal-content'>
-      <div style='display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;'>
-        <h3 id='mTitle' style='font-size:15px; font-weight:700;'>Product Title</h3>
-        <i class='fa-solid fa-xmark' onclick='closeModal(&apos;orderModal&apos;)' style='cursor:pointer; font-size:18px;'/>
-      </div>
-
-      <div class='product-gallery' id='productGallery'>
-        <img id='galleryImage1' src='https://via.placeholder.com/400x500?text=Product+Photo+1' alt='Product photo 1' onclick='viewImage(this.src)'/>
-        <img id='galleryImage2' src='https://via.placeholder.com/400x500?text=Product+Photo+2' alt='Product photo 2' onclick='viewImage(this.src)'/>
-        <img id='galleryImage3' src='https://via.placeholder.com/400x500?text=Product+Photo+3' alt='Product photo 3' onclick='viewImage(this.src)'/>
-        <img id='galleryImage4' src='https://via.placeholder.com/400x500?text=Product+Photo+4' alt='Product photo 4' onclick='viewImage(this.src)'/>
-      </div>
-      <!-- Code & Price Row -->
-      <div class='modal-code-row'>Product Code: <span id='mCode'>2104</span></div>
-      <div class='modal-price-row'>
-        Price: <span id='mPrice' style='color:#000; text-decoration:none;'>1900</span> BDT 
-        <span id='mRegPrice'>3300 BDT</span>
-      </div>
-
-      <div class='product-description'><h4>Product Description</h4><p id='mDescription'>Add the fabric, fit, color, care instructions and other product details here. Product descriptions can later be managed from Supabase.</p></div>
-      <!-- Select Size Box -->
-      <div class='size-title'>Select Size</div>
-      <div class='size-box' id='sizeBoxContainer'>
-        <!-- Dynamic Sizes Load Here -->
-      </div>
-
-      <!-- Quantity Box & Add to Cart -->
-      <div class='qty-order-row'>
-        <span style='font-size:12px; font-weight:700;'>Qty:</span>
-        <div class='qty-control'>
-          <button class='qty-btn' onclick='changeQty(-1)'>-</button>
-          <input class='qty-val' id='qtyInput' readonly='readonly' type='text' value='1'/>
-          <button class='qty-btn' onclick='changeQty(1)'>+</button>
-        </div>
-        <button class='btn-add-cart' onclick='addCurrentToCart()'>
-          <i class='fa-solid fa-cart-shopping'/> Add To Cart
-        </button>
-      </div>
-
-      <!-- Customer Address Fields -->
-      <input class='form-input' id='custName' placeholder='Your Full Name *' type='text'/>
-      <input class='form-input' id='custPhone' placeholder='Phone Number *' type='tel'/>
-      <input class='form-input' id='custAddr' placeholder='Full Delivery Address *' type='text'/>
-      
-      <select class='form-input' id='deliveryLocation'>
-        <option value='70'>Inside Dhaka (70 BDT Delivery)</option>
-        <option value='130'>Outside Dhaka (130 BDT Delivery)</option>
-      </select>
-
-      <select class='form-input' id='paymentMethod' onchange='handlePaymentChange()'>
-        <option value='COD'>Cash on Delivery</option>
-        <option value='bKash'>bKash Personal (01741291188)</option>
-        <option value='Nagad'>Nagad Personal (01748762492)</option>
-        <option value='Upay'>Upay Personal (01741291188)</option>
-      </select>
-
-      <div class='payment-instruction-box' id='paymentBox' style='display:none; background:#f8fafc; padding:8px; border-radius:4px; margin-bottom:8px; font-size:11px;'>
-        <p id='payText'>Send Money to the selected number and paste TrxID below.</p>
-        <input class='form-input' id='trxId' placeholder='Enter Transaction ID (TrxID)' style='margin-top:6px; margin-bottom:0;' type='text'/>
-      </div>
-
-      <input class='form-input' id='resellerCode' placeholder='Reseller / Referral Code (Optional)' type='text'/>
-
-      <!-- Main Submit Button -->
-      <button class='btn-submit-order' onclick='placeOrder()'>
-        Order Now <i class='fa-solid fa-check'/>
-      </button>
-
-      <!-- Checklist Feature Box -->
-      <div class='feature-check-box'>
-        <div class='feature-item'><i class='fa-solid fa-check'/> Home delivery all over the country.</div>
-        <div class='feature-item'><i class='fa-solid fa-thumbs-up'/> Quality Product</div>
-        <div class='feature-item'><i class='fa-solid fa-handshake'/> Cash On Delivery Available</div>
-        <div class='feature-item'><i class='fa-solid fa-truck'/> Delivery Charge Inside Dhaka 70 TK</div>
-        <div class='feature-item'><i class='fa-solid fa-truck-ramp-box'/> Delivery Charge Outside Dhaka 130 TK</div>
-      </div>
-
-      <!-- Helpline Call Box -->
-      <div class='call-helpline-box'>
-        <div class='helpline-title'>Have question about this product? please call</div>
-        <a class='helpline-phone' href='tel:01741291188'><i class='fa-solid fa-phone' style='color:var(--brand-purple);'/> 01741291188</a>
-        <div>
-          <span class='pay-tag'>Bkash Personal</span>
-          <span class='pay-tag'>Nagad Personal</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Separate account page -->
-  <section class='auth-page' id='authPage' aria-label='Login and registration page'>
-    <button class='auth-close' onclick='closeAuthPage()'><i class='fa-solid fa-arrow-left'/> Back to Store</button>
-    <div class='auth-card'>
-      <div class='auth-brand'>C&amp;C<br/><small style='font-size:10px;letter-spacing:2px;color:#555'>CLOTH &amp; CRAFT FASHION</small></div>
-      <h2 id='authHeading'>Welcome Back</h2><p id='authSubheading'>Sign in or create your customer account.</p>
-      <div class='auth-actions'><button id='customerTab' class='active' onclick='setAuthMode("customer")'>Customer</button><button id='resellerTab' onclick='setAuthMode("reseller")'>Reseller</button></div>
-      <div class='auth-actions'><button id='loginTab' class='active' onclick='setAuthView("login")'>Login</button><button id='registerTab' onclick='setAuthView("register")'>Register</button></div>
-      <div id='authFormArea'><input class='form-input' id='authName' placeholder='Full name' type='text' style='display:none'/><input class='form-input' id='authPhone' placeholder='11-digit mobile number' type='tel'/><input class='form-input' id='authPassword' placeholder='Password (Supabase Auth setup required)' type='password'/><input class='form-input' id='authReferral' placeholder='Referral code (optional)' type='text' style='display:none'/><button class='btn-submit-order' onclick='submitAuth()'>Continue</button><p id='authNotice' style='text-align:left;margin-top:12px'>Demo layout only. Secure login becomes active after Supabase Authentication is connected.</p></div>
-      <div id='authResult' style='display:none;text-align:center'><p>Your local demo ID:</p><strong id='displayCustId'>CCF-0000</strong></div>
-    </div>
-  </section>
-
-  <section class='listing-page' id='cartPage'><div class='listing-head'><h2>Your Cart</h2><button onclick='closeListingPages()'>Continue Shopping</button></div><div id='cartItems'></div><div id='cartSummary' class='info-card'></div><button class='btn-submit-order' onclick='checkoutCart()'>Proceed to Order</button></section>
-  <section class='listing-page' id='favoritesPage'><div class='listing-head'><h2>My Favorites</h2><button onclick='closeListingPages()'>Back to Store</button></div><div id='favoriteItems'></div></section>
-  <section class='listing-page' id='imageViewer'><div class='listing-head'><h2>Product Image</h2><button onclick='closeListingPages()'>Close</button></div><img id='viewerImage' alt='Full product image' style='display:block;max-width:100%;max-height:75vh;margin:auto;object-fit:contain'/></section>
-  <section class='info-page' id='infoPage'><div class='info-page-head'><button onclick='closeInfoPage()' aria-label='Close'>&#215;</button><h2 id='infoPageTitle'>Information</h2><p>Cloth &amp; Craft Fashion</p></div><div id='infoPageContent'></div></section>
-  <section class='listing-page' id='resellerPage'><div class='listing-head'><h2>Reseller Program</h2><button onclick='closeListingPages()'>Back to Store</button></div><div class='reseller-hero'><h2>Grow With C&amp;C</h2><p>Share fashion, complete delivered orders and earn commission.</p><button class='gold-btn' style='padding:10px 16px;margin-top:12px' onclick='openAuthPage("reseller","register")'>Become a Reseller</button></div><div class='reseller-grid'><div class='reseller-stat'><strong>8%</strong><span>Orders 1–20</span></div><div class='reseller-stat'><strong>10%</strong><span>Orders 21–50</span></div><div class='reseller-stat'><strong>12%</strong><span>Orders 51–100</span></div><div class='reseller-stat'><strong>15%</strong><span>Orders 101+</span></div></div><div class='info-card reseller-steps'><h3>How it works</h3><p>1. Register and wait for admin approval.<br/>2. Share product links and your referral code.<br/>3. Commission is calculated only on eligible delivered orders.<br/>4. Referral bonus: ৳50 after the referred reseller's first delivered order.</p><p><strong>Important:</strong> This is the front-end preview. Secure reseller accounts, live order attribution, commissions, balances and payouts require Supabase tables plus server-side rules before launch.</p></div></section>
-
-  <!-- Floating WhatsApp Icon -->
-  <a class='floating-wa' href='https://wa.me/8801410053115' target='_blank'>
-    <i class='fa-brands fa-whatsapp'/>
-  </a>
-
-  <!-- Footer Section (Matched with Image Screenshot) -->
-  <footer class='footer'>
-    
-    <!-- White Logo Box Header -->
-    <div class='footer-logo-box'>
-      <span>Cloth &amp; Craft</span>
-    </div>
-
-    <!-- Description Text -->
-    <div class='footer-about-text'>
-      Cloth &amp; Craft Fashion is your one-stop online shopping destination in Bangladesh, offering a wide range of stylish clothing, accessories, and lifestyle essentials. With a focus on quality, affordability, and customer satisfaction, we ensure a smooth and enjoyable shopping experience. Stay trendy and shop with confidence at <strong>Cloth &amp; Craft Fashion</strong>!
-    </div>
-
-    <!-- Real Payment Badges Section -->
-    <div class='payment-section'>
-      <span class='payment-title'>WE ACCEPT</span>
-      <div class='payment-badges'>
-        <img alt='Visa' src='https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png' title='Visa'/>
-        <img alt='Mastercard' src='https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg' title='Mastercard'/>
-        <img alt='bKash' src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/BKash_logo.png/320px-BKash_logo.png' title='bKash'/>
-        <img alt='Nagad' src='https://upload.wikimedia.org/wikipedia/commons/8/89/Nagad_Logo.png' title='Nagad'/>
-        <img alt='DBBL Rocket' src='https://upload.wikimedia.org/wikipedia/commons/a/a2/Dutch-Bangla_Bank_Limited_Logo.png' title='Rocket DBBL'/>
-        <img alt='Upay' src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Upay_logo.svg/512px-Upay_logo.svg.png' title='Upay'/>
-      </div>
-    </div>
-
-    <!-- Links Columns -->
-    <div class='footer-grid'>
-      <div class='footer-links'>
-        <h4>Quick Links</h4>
-        <a onclick='openInfoPage(&quot;Order Tracking&quot;)'>Order Tracking</a>
-        <a onclick='openInfoPage(&quot;About Us&quot;)'>About Us</a>
-        <a href='tel:01741291188'>Contact Us</a>
-        <a onclick='openAuthPage(&quot;customer&quot;,&quot;login&quot;)'>Login</a>
-        <a onclick='openAuthPage(&quot;customer&quot;,&quot;register&quot;)'>Register</a>
-        <a onclick='openResellerPage()'>Reseller Program</a>
-      </div>
-      <div class='footer-links'>
-        <h4>Information</h4>
-        <a onclick='openInfoPage(&quot;Delivery Policy&quot;)'>Delivery Policy</a>
-        <a onclick='openInfoPage(&quot;Privacy Policy&quot;)'>Privacy Policy</a>
-        <a onclick='openInfoPage(&quot;Return &amp; Exchange Policy&quot;)'>Return &amp; Exchange Policy</a>
-        <a onclick='openInfoPage(&quot;About Us&quot;)'>About Us</a>
-        <a onclick='openInfoPage(&quot;How to Order&quot;)'>How to Order</a>
-        <a onclick='openInfoPage(&quot;Terms &amp; Conditions&quot;)'>Terms &amp; Conditions</a>
-      </div>
-    </div>
-
-    <!-- Social Media Links (Follow Us) -->
-    <div class='follow-us-section'>
-      <h4>Follow Us</h4>
-      <div class='social-icons'>
-        <a href='https://www.tiktok.com/@clothcraftfashion' target='_blank' title='TikTok (@clothcraftfashion)'>
-          <i class='fa-brands fa-tiktok'/>
-        </a>
-        <a href='https://www.facebook.com/' target='_blank' rel='noopener' title='Facebook'>
-          <i class='fa-brands fa-facebook-f'/>
-        </a>
-        <a href='https://www.youtube.com/' target='_blank' rel='noopener' title='YouTube'>
-          <i class='fa-brands fa-youtube'/>
-        </a>
-        <a href='https://www.instagram.com/' target='_blank' rel='noopener' title='Instagram'>
-          <i class='fa-brands fa-instagram'/>
-        </a>
-        <a href='https://www.tiktok.com/' target='_blank' rel='noopener' title='TikTok'>
-          <i class='fa-brands fa-tiktok'/>
-        </a>
-      </div>
-    </div>
-
-    <!-- Store Address Box -->
-    <div class='address-box'>
-      <p style='font-weight:700; font-size:12px; color:#ffd700;'>Store Address &amp; Contact:</p>
-      <p>Noor Nahar Super Complex, Lane No. 02, Shop No. E/12 (Underground), Chowdhury Nagar, Kaliganj, Keraniganj, Dhaka-1310.</p>
-      <p style='margin-top:4px;'><strong>Phone:</strong> 01741291188</p>
-    </div>
-  </footer>
-
-  <!-- App Bottom Navigation Bar -->
-  <div class='app-bottom-nav'>
-    <a class='nav-item active' href='#home'>
-      <i class='fa-solid fa-house'/>
-      <span>Home</span>
-    </a>
-    <a class='nav-item' href='#categorySection'>
-      <i class='fa-solid fa-border-all'/>
-      <span>Category</span>
-    </a>
-    <a class='nav-item' href='javascript:void(0)' onclick='openCart()'>
-      <i class='fa-solid fa-cart-shopping'/>
-      <span class='nav-badge'>0</span>
-      <span>Cart</span>
-    </a>
-    <a class='nav-item' href='tel:01741291188'>
-      <i class='fa-solid fa-phone'/>
-      <span>Call</span>
-    </a>
-    <a class='nav-item' href='javascript:void(0)' onclick='openAuthPage(&quot;customer&quot;,&quot;login&quot;)'>
-      <i class='fa-regular fa-user'/>
-      <span>Login</span>
-    </a>
-  </div>
-
-  <script type='text/javascript'>
-  //<![CDATA[
-    let selectedSize = "";
-    let basePrice = 0;
-    let currentTitle = "";
-    let currentCode = "";
-    let qtyCount = 1;
-
-    function openOrderModal(title, price, regPrice, code, type) {
-      currentTitle = title;
-      basePrice = price;
-      currentCode = code;
-      qtyCount = 1;
-
-      document.getElementById("mTitle").innerText = title;
-      document.getElementById("mCode").innerText = code;
-      document.getElementById("mPrice").innerText = price;
-      document.getElementById("mRegPrice").innerText = regPrice + " BDT";
-      document.getElementById("qtyInput").value = qtyCount;
-      let activeCard = Array.from(document.querySelectorAll('.prod-card')).find(card => (card.querySelector('.prod-title')?.innerText || '') === title);
-      if(activeCard){ const mainImg=activeCard.querySelector('img')?.src || ''; ['galleryImage1','galleryImage2','galleryImage3','galleryImage4'].forEach((id,idx)=>{const im=document.getElementById(id);if(im)im.src=mainImg;}); document.getElementById('mDescription').textContent='Product details: '+title+'. Add fabric, fitting, colors, care instructions and measurements to this description when the product is entered in Supabase.'; }
-
-      let sizeBox = document.getElementById("sizeBoxContainer");
-      sizeBox.innerHTML = "";
-      
-      let sizes = [];
-      if(type === 'pants') {
-        sizes = ['28', '30', '32', '34'];
-      } else {
-        sizes = ['M', 'L', 'XL', 'XXL'];
-      }
-
-      selectedSize = sizes[0];
-
-      sizes.forEach((sz, idx) => {
-        let btn = document.createElement("button");
-        btn.className = "size-btn" + (idx === 0 ? " active" : "");
-        btn.innerText = sz;
-        btn.onclick = function() {
-          document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedSize = sz;
-        };
-        sizeBox.appendChild(btn);
-      });
-
-      document.getElementById("orderModal").classList.add("active");
-    }
-
-    function changeQty(amt) {
-      qtyCount += amt;
-      if(qtyCount < 1) qtyCount = 1;
-      document.getElementById("qtyInput").value = qtyCount;
-    }
-
-    function handlePaymentChange() {
-      let method = document.getElementById("paymentMethod").value;
-      let payBox = document.getElementById("paymentBox");
-      let payText = document.getElementById("payText");
-
-      if (method === "COD") {
-        payBox.style.display = "none";
-      } else if (method === "bKash") {
-        payBox.style.display = "block";
-        payText.innerHTML = "Send Money to bKash Personal Number: <strong>01741291188</strong>";
-      } else if (method === "Nagad") {
-        payBox.style.display = "block";
-        payText.innerHTML = "Send Money to Nagad Personal Number: <strong>01748762492</strong>";
-      } else if (method === "Upay") {
-        payBox.style.display = "block";
-        payText.innerHTML = "Send Money to Upay Personal Number: <strong>01741291188</strong>";
-      }
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove("active");
-    }
-
-    function openLoginModal() {
-      let savedId = localStorage.getItem("ccf_cust_id");
-      if(savedId) {
-        document.getElementById("loginFormArea").style.display = "none";
-        document.getElementById("idResultArea").style.display = "block";
-        document.getElementById("displayCustId").innerText = savedId;
-      } else {
-        document.getElementById("loginFormArea").style.display = "block";
-        document.getElementById("idResultArea").style.display = "none";
-      }
-      document.getElementById("loginModal").classList.add("active");
-    }
-
-    function registerUserId() {
-      let phone = document.getElementById("loginPhone").value;
-      if(!phone || phone.length < 10) {
-        alert("Please enter a valid phone number.");
-        return;
-      }
-      let generatedId = "CCF-" + Math.floor(1000 + Math.random() * 9000);
-      localStorage.setItem("ccf_cust_id", generatedId);
-      document.getElementById("displayCustId").innerText = generatedId;
-      document.getElementById("loginFormArea").style.display = "none";
-      document.getElementById("idResultArea").style.display = "block";
-    }
-
-    function placeOrder() {
-      let name = document.getElementById("custName").value;
-      let phone = document.getElementById("custPhone").value;
-      let addr = document.getElementById("custAddr").value;
-      let reseller = document.getElementById("resellerCode").value || "N/A";
-      let deliveryCharge = parseInt(document.getElementById("deliveryLocation").value);
-      let payMethod = document.getElementById("paymentMethod").value;
-      let trxId = document.getElementById("trxId").value || "N/A";
-
-      if(!name || !phone || !addr) {
-        alert("Please fill in your name, phone number, and address.");
-        return;
-      }
-
-      if(payMethod !== "COD" && !trxId.trim()) {
-        alert("Please enter the payment Transaction ID (TrxID).");
-        return;
-      }
-      let savedId = localStorage.getItem("ccf_cust_id") || "N/A";
-      let total = (basePrice * qtyCount) + deliveryCharge;
-
-      let text = "*CLOTH & CRAFT FASHION - New Order*%0A" +
-                 "*Product Code:* " + currentCode + "%0A" +
-                 "*Customer ID:* " + savedId + "%0A" +
-                 "*Product:* " + currentTitle + "%0A" +
-                 "*Size:* " + selectedSize + "%0A" +
-                 "*Quantity:* " + qtyCount + "%0A" +
-                 "*Delivery Charge:* " + deliveryCharge + " BDT%0A" +
-                 "*Total Price:* " + total + " BDT%0A" +
-                 "*Payment Method:* " + payMethod + "%0A" +
-                 "*Reseller / Referral Code:* " + reseller + "%0A";
-
-      if(payMethod !== "COD") {
-        text += "*TrxID:* " + trxId + "%0A";
-      }
-
-      text += "--------------------%0A" +
-              "*Customer Name:* " + name + "%0A" +
-              "*Phone:* " + phone + "%0A" +
-              "*Address:* " + addr;
-
-      window.open("https://wa.me/8801741291188?text=" + text, '_blank');
-    }
-
-    // Front-end interactions: favorites, cart, search, information pages and separate auth page.
-    let cartItems = JSON.parse(localStorage.getItem('ccf_cart') || '[]');
-    let favoriteItems = JSON.parse(localStorage.getItem('ccf_favorites') || '[]');
-    let authMode = 'customer';
-    let authView = 'login';
-    let lastOrderProduct = null;
-
-    function getCardData(card) {
-      const title = card.querySelector('.prod-title')?.innerText || 'Product';
-      const priceText = card.querySelector('.sale-price')?.innerText || '0';
-      const price = parseInt(priceText.replace(/[^0-9]/g,''),10) || 0;
-      const img = card.querySelector('img')?.src || '';
-      const products = {
-        "Men's Baggy Pants": {price:1200,regular:1800,code:'2101',type:'pants'},
-        'China Formal Pants': {price:1400,regular:2000,code:'2102',type:'pants'},
-        'Cargo Short Pants': {price:850,regular:1200,code:'2103',type:'pants'},
-        "Men's Winter Jacket": {price:2200,regular:3200,code:'2104',type:'winter'},
-        "Women's Three-Piece & Bangles Set": {price:1650,regular:2500,code:'2105',type:'dress'},
-        "Women's Winter Collection": {price:1500,regular:2200,code:'2106',type:'winter'}
-      };
-      const meta = products[title] || {price,regular:0,code:'',type:'pants'};
-      return {title, price:meta.price, regular:meta.regular, code:meta.code, type:meta.type, image:img, images:[img,img,img,img], description:'Add product fabric, fit, color, care instructions and measurements here.'};
-    }
-    function allCardData(){ return Array.from(document.querySelectorAll('.prod-card')).map(getCardData); }
-    function persistFavorites(){ localStorage.setItem('ccf_favorites', JSON.stringify(favoriteItems)); }
-    function persistCart(){ localStorage.setItem('ccf_cart', JSON.stringify(cartItems)); updateCartCounts(); }
-    function updateCartCounts(){ const count=cartItems.reduce((sum,item)=>sum+item.qty,0); ['headerCartCount'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=count}); const nav=document.querySelector('.app-bottom-nav .nav-badge');if(nav)nav.textContent=count; }
-    function toggleFavorite(btn,event){ if(event){event.preventDefault();event.stopPropagation()} const card=btn.closest('.prod-card');if(!card)return;const data=getCardData(card);const i=favoriteItems.findIndex(x=>x.code===data.code && x.title===data.title);if(i>=0){favoriteItems.splice(i,1);btn.classList.remove('is-favorite');btn.innerHTML="<i class='fa-regular fa-heart'></i>";}else{favoriteItems.push(data);btn.classList.add('is-favorite');btn.innerHTML="<i class='fa-solid fa-heart'></i>";}persistFavorites(); }
-    function syncFavoriteButtons(){document.querySelectorAll('.prod-card').forEach(card=>{const d=getCardData(card);const yes=favoriteItems.some(x=>x.code===d.code&&x.title===d.title);const b=card.querySelector('.favorite-btn');if(b){b.classList.toggle('is-favorite',yes);b.innerHTML=yes?"<i class='fa-solid fa-heart'></i>":"<i class='fa-regular fa-heart'></i>";}})}
-    function addCurrentToCart(){if(!selectedSize){alert('Please select a size.');return}const item={title:currentTitle,code:currentCode,price:basePrice,size:selectedSize,qty:qtyCount};const i=cartItems.findIndex(x=>x.code===item.code&&x.size===item.size);if(i>=0)cartItems[i].qty+=qtyCount;else cartItems.push(item);persistCart();alert('Added to cart.');}
-    function openCart(){closeListingPages();document.getElementById('cartPage').classList.add('active');renderCart();}
-    function renderCart(){const wrap=document.getElementById('cartItems'),summary=document.getElementById('cartSummary');if(!wrap)return;if(!cartItems.length){wrap.innerHTML='<div class="info-card">Your cart is empty. Choose a product to get started.</div>';summary.innerHTML='';return;}wrap.innerHTML=cartItems.map((it,i)=>`<div class="listing-item"><div class="listing-info"><strong>${escapeHTML(it.title)}</strong><p>Code: ${escapeHTML(it.code)} · Size: ${escapeHTML(it.size)} · Qty: ${it.qty}</p><strong>৳${it.price*it.qty}</strong><br/><button onclick="removeCartItem(${i})">Remove</button></div></div>`).join('');const total=cartItems.reduce((sum,it)=>sum+it.price*it.qty,0);summary.innerHTML=`<strong>Subtotal: ৳${total}</strong><p>Delivery charge will be confirmed at checkout.</p>`;}
-    function removeCartItem(i){cartItems.splice(i,1);persistCart();renderCart()}
-    function checkoutCart(){if(!cartItems.length){alert('Your cart is empty.');return}closeListingPages();const first=cartItems[0];openOrderModal(first.title,first.price,0,first.code,'pants');document.getElementById('mDescription').textContent='Cart checkout preview. For now, order form handles one selected product at a time; multi-product WhatsApp checkout needs backend/cart-order integration.';}
-    function openFavorites(){closeListingPages();document.getElementById('favoritesPage').classList.add('active');renderFavorites();}
-    function renderFavorites(){const wrap=document.getElementById('favoriteItems');if(!wrap)return;if(!favoriteItems.length){wrap.innerHTML='<div class="info-card">No favorites yet. Tap the heart on any product.</div>';return;}wrap.innerHTML=favoriteItems.map((it,i)=>`<div class="listing-item"><img src="${escapeAttr(it.image)}" alt="${escapeAttr(it.title)}"/><div class="listing-info"><strong>${escapeHTML(it.title)}</strong><p>৳${it.price}</p><button onclick="openFavoriteProduct(${i})">View Product</button> <button onclick="removeFavorite(${i})">Remove</button></div></div>`).join('');}
-    function openFavoriteProduct(i){const p=favoriteItems[i];if(!p)return;closeListingPages();openOrderModal(p.title,p.price,p.regular,p.code,p.type);}
-    function removeFavorite(i){favoriteItems.splice(i,1);persistFavorites();renderFavorites();syncFavoriteButtons()}
-    function closeListingPages(){document.querySelectorAll('.listing-page').forEach(el=>el.classList.remove('active'));}
-    function viewImage(src){document.getElementById('viewerImage').src=src;closeListingPages();document.getElementById('imageViewer').classList.add('active')}
-    function toggleSearch(){const el=document.getElementById('searchBarWrap');if(el)el.style.display=el.style.display==='none'?'flex':'none';if(el&&el.style.display==='flex')document.getElementById('siteSearch').focus()}
-    function searchProducts(value){const q=(value||'').toLowerCase().trim();document.querySelectorAll('.prod-card').forEach(card=>{card.style.display=card.innerText.toLowerCase().includes(q)?'flex':'none'});}
-    function filterProducts(type){document.querySelectorAll('.prod-card').forEach(card=>{card.style.display=type==='all'||card.dataset.type===type?'flex':'none'});document.getElementById('productsSection')?.scrollIntoView({behavior:'smooth'});}
-    function toggleCategoryMenu(){const el=document.getElementById('categoryMenu');el.style.display=el.style.display==='none'?'block':'none';}
-    function openInfoPage(title){closeListingPages();const data={
-      'About Us':['About Cloth & Craft Fashion','Cloth & Craft Fashion is a clothing destination focused on stylish, quality-conscious fashion at accessible prices. Product details, prices and availability should be checked on each product page.','Our Promise','We aim to provide clear product information, responsive support and a convenient ordering experience.'],
-      'How to Order':['How to Order','Choose a product, open its details, select your size and quantity, then enter your delivery information. Confirm the total and send the order through the available ordering channel.','Before You Order','Check the size, product details, delivery address and phone number carefully.'],
-      'Delivery Policy':['Shipping & Delivery','Current displayed delivery charges are ৳70 inside Dhaka and ৳130 outside Dhaka. Confirm the applicable charge when placing the order; delivery timing depends on destination and courier service.','Delivery Address','Provide a complete address and an active phone number so the delivery team can contact you.'],
-      'Privacy Policy':['Privacy Policy','Customer information should only be used to process orders, provide support and manage the customer account. Do not enter payment passwords or OTPs into the website.','Account Security','Secure account storage requires Supabase Authentication and appropriate database access policies before launch.'],
-      'Return & Exchange Policy':['Return & Exchange Policy','Contact customer support as soon as possible if an item arrives damaged, incorrect or defective. Keep the product and packaging available while the request is reviewed.','Important','The store owner must confirm the final return window, conditions and shipping responsibilities before publishing this policy as final.'],
-      'Terms & Conditions':['Terms & Conditions','Product availability, prices and delivery charges may change. Orders are subject to confirmation by the store.','Payments','Cash on delivery and listed mobile payment methods are shown as available options; online payment verification is not automated in this front-end preview.'],
-      'Order Tracking':['Order Tracking','For order status, contact customer support with your order details and the phone number used to place the order.','Support','Phone: 01741291188']
-    };const d=data[title]||[title,'More information will be published here.','Need Help?','Contact customer support for assistance.'];document.getElementById('infoPageTitle').textContent=d[0];document.getElementById('infoPageContent').innerHTML=`<div class="info-card"><p>${escapeHTML(d[1])}</p></div><div class="info-card"><h3>${escapeHTML(d[2])}</h3><p>${escapeHTML(d[3])}</p></div><div class="info-card"><h3>Contact Us</h3><p>Phone: 01741291188</p><a href="tel:01741291188" class="gold-btn" style="display:inline-block;padding:9px 14px;text-decoration:none">Call Support</a></div>`;document.getElementById('infoPage').classList.add('active');}
-    function closeInfoPage(){document.getElementById('infoPage').classList.remove('active')}
-    function openResellerPage(){closeListingPages();document.getElementById('resellerPage').classList.add('active')}
-    function openAuthPage(mode,view){closeListingPages();closeInfoPage();authMode=mode||'customer';authView=view||'login';document.getElementById('authPage').classList.add('active');syncAuthView();}
-    function closeAuthPage(){document.getElementById('authPage').classList.remove('active')}
-    function setAuthMode(mode){authMode=mode;syncAuthView()}
-    function setAuthView(view){authView=view;syncAuthView()}
-    function syncAuthView(){document.getElementById('authHeading').textContent=authView==='login'?'Welcome Back':(authMode==='reseller'?'Become a Reseller':'Create Your Account');document.getElementById('authSubheading').textContent=authMode==='reseller'?'Reseller access and registration':'Sign in or create your customer account.';document.getElementById('customerTab').classList.toggle('active',authMode==='customer');document.getElementById('resellerTab').classList.toggle('active',authMode==='reseller');document.getElementById('loginTab').classList.toggle('active',authView==='login');document.getElementById('registerTab').classList.toggle('active',authView==='register');document.getElementById('authName').style.display=authView==='register'?'block':'none';document.getElementById('authReferral').style.display=authMode==='reseller'?'block':'none';document.getElementById('authResult').style.display='none';document.getElementById('authFormArea').style.display='block';document.getElementById('authNotice').textContent='Preview only: secure login and registration require Supabase Authentication and server-side role checks.';}
-    function submitAuth(){const phone=document.getElementById('authPhone').value.trim();const pass=document.getElementById('authPassword').value;if(!phone||phone.replace(/\D/g,'').length<10){alert('Please enter a valid mobile number.');return}if(!pass||pass.length<6){alert('Enter a password with at least 6 characters.');return}if(authView==='register'&&!document.getElementById('authName').value.trim()){alert('Please enter your name.');return}document.getElementById('authNotice').textContent='The design is ready, but real account creation is not enabled until Supabase Authentication is connected. No password has been saved.';}
-    function escapeHTML(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-    function escapeAttr(v){return escapeHTML(v)}
-    document.addEventListener('DOMContentLoaded',function(){syncFavoriteButtons();updateCartCounts();document.querySelectorAll('.prod-card img').forEach(img=>img.addEventListener('click',function(){const card=img.closest('.prod-card');const b=card?.querySelector('.btn-order');if(b)b.click()}));});
-
-  //]]>
-  </script>
-
 </body>
 </html>
