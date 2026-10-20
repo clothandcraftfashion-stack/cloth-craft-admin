@@ -1,446 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cloth & Craft Fashion | Admin Panel</title>
+<title>Cloth & Craft Fashion — Admin</title>
+<meta name="theme-color" content="#101010">
 <style>
-:root{--gold:#d4af55;--black:#151515;--bg:#f5f6f8;--white:#fff;--muted:#777;--line:#e8e8e8}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#222}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:245px;background:var(--black);color:white;padding:22px 15px;flex-shrink:0}
-.brand{padding:8px 10px 24px;border-bottom:1px solid #353535;margin-bottom:20px}
-.brand strong{font-size:18px;color:var(--gold);letter-spacing:1px}
-.brand small{display:block;color:#bbb;margin-top:7px}
-.nav button{display:block;width:100%;padding:13px;border:0;background:transparent;color:#ccc;text-align:left;border-radius:8px;margin:4px 0}
-.nav button:hover,.nav button.active{background:var(--gold);color:#171717;font-weight:bold}
-.main{flex:1;min-width:0}
-.top{height:72px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px}
-.top h2{font-size:19px}
-.content{padding:25px;max-width:1450px;margin:auto}
-.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.heading h1{font-size:25px;margin:0}
-.heading p{color:var(--muted);font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px}
-.card,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:20px;min-width:0}
-.card small{color:var(--muted)}
-.number{font-size:28px;font-weight:bold;margin-top:12px}
-.panel{margin-bottom:18px}
-.panel h3{margin-top:0}
-.btn{padding:10px 14px;border:1px solid #ddd;border-radius:8px;background:white;font-weight:bold;font-size:13px}
-.btn.gold{background:var(--gold);border-color:var(--gold);color:#171717}
-.btn.dark{background:#171717;color:white}
-.btn:disabled{opacity:.5}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
-.toolbar input{flex:1;min-width:180px}
-input,select{padding:11px;border:1px solid #ddd;border-radius:8px;background:white;max-width:100%}
-.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:560px}
-th,td{padding:13px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
-th{background:#fafafa;color:#666;font-size:11px;text-transform:uppercase}
-.empty{text-align:center;color:#888;padding:28px}
-.notice{padding:12px 14px;background:#fff8e5;border:1px solid #f0dfac;border-radius:8px;font-size:13px;line-height:1.6;margin-bottom:15px}
-.good{background:#eaf7ef;border-color:#c8e7d2}
-.bad{background:#fff0f0;border-color:#f0cccc}
-.formrow{display:flex;gap:10px;flex-wrap:wrap}
-.formrow input{flex:1;min-width:160px}
-.hidden{display:none!important}
-.mobile-menu{display:none}
-@media(max-width:850px){
- .sidebar{width:210px}
- .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
- .content{padding:15px}
- .top{padding:0 15px}
-}
-@media(max-width:600px){
- .layout{display:block}
- .sidebar{display:none;width:100%;padding:12px}
- .sidebar.open{display:block}
- .mobile-menu{display:inline-block}
- .top{height:65px}
- .top h2{font-size:15px}
- .stats{gap:9px}
- .card{padding:13px}
- .number{font-size:23px}
- .content{padding:13px}
- .heading h1{font-size:22px}
-}
+:root{--bg:#f5f6f8;--panel:#fff;--ink:#171717;--muted:#777d88;--line:#e8e9ed;--gold:#c9a34a;--gold2:#f4e4b4;--dark:#111214;--green:#18845b;--red:#c94c4c;--blue:#4169e1;--shadow:0 8px 28px rgba(18,20,25,.06)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:flex}.sidebar{width:252px;background:var(--dark);color:#f8f8f8;padding:24px 16px;display:flex;flex-direction:column;flex-shrink:0}.brand{display:flex;align-items:center;gap:11px;padding:0 9px 26px;border-bottom:1px solid #2d2d2d}.brandmark{width:44px;height:44px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-family:Georgia,serif;font-size:19px;border-radius:12px}.brand strong{display:block;font-size:13px;letter-spacing:1.2px}.brand small{display:block;color:#bcbcbc;font-size:10px;letter-spacing:2px;margin-top:4px}.nav-label{font-size:10px;letter-spacing:1.8px;color:#777;margin:24px 10px 10px}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:#b9bbc1;text-align:left;padding:12px 13px;border-radius:10px;display:flex;align-items:center;gap:12px;font-size:13px;transition:.18s}.nav button:hover{background:#222326;color:#fff}.nav button.active{background:linear-gradient(100deg,#c9a34a,#e7cc83);color:#181818;font-weight:700}.nav .ico{width:20px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;border-top:1px solid #2d2d2d;padding:16px 9px 0;color:#8e9095;font-size:11px;line-height:1.7}.side-bottom b{color:#d7b65d}.main{min-width:0;flex:1}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:16px;position:sticky;top:0;z-index:5}.top-left{display:flex;align-items:center;gap:13px;min-width:0}.menu-toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:var(--gold);font-weight:800;text-transform:uppercase}.topbar h1{font-size:21px;margin:3px 0 0;letter-spacing:-.5px}.top-actions{display:flex;align-items:center;gap:12px}.status{display:flex;align-items:center;gap:7px;color:#60656f;font-size:11px;background:#f6f7f8;padding:9px 11px;border-radius:30px}.dot{width:7px;height:7px;background:#d1a844;border-radius:50%}.avatar{width:36px;height:36px;border-radius:12px;background:#171717;color:#e8cb7b;display:grid;place-items:center;font-weight:800}.content{padding:27px 30px 38px;max-width:1500px;margin:auto}.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:22px}.page-head h2{font-size:25px;letter-spacing:-.7px;margin:0}.page-head p{margin:7px 0 0;color:var(--muted);font-size:13px}.btn{border:1px solid var(--line);background:#fff;color:#222;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{border-color:#c9a34a}.btn.gold{background:var(--gold);border-color:var(--gold);color:#171717}.btn.dark{background:#171717;border-color:#171717;color:#fff}.btn.danger{color:var(--red);border-color:#f0d5d5}.btn:disabled{opacity:.5;cursor:not-allowed}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stat{padding:19px}.stat-top{display:flex;align-items:center;justify-content:space-between;color:#707580;font-size:11px;font-weight:650}.stat-icon{width:36px;height:36px;display:grid;place-items:center;background:#fbf4df;color:#a27c24;border-radius:11px;font-size:17px}.stat-value{font-size:27px;font-weight:800;letter-spacing:-1px;margin-top:15px}.stat-note{font-size:11px;color:#9296a0;margin-top:7px}.two-col{grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr)}.panel{padding:20px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.panel-head h3{font-size:14px;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.pill{font-size:10px;border-radius:30px;padding:6px 9px;background:#f6f6f7;color:#626772;white-space:nowrap}.empty-chart{height:215px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999da6;background:repeating-linear-gradient(to bottom,transparent 0,transparent 52px,#f1f2f4 53px,#f1f2f4 54px);border-radius:10px;text-align:center;font-size:12px}.empty-chart strong{color:#50545e;margin-bottom:7px}.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick{border:1px solid var(--line);border-radius:12px;padding:15px;text-align:left;background:#fff}.quick:hover{border-color:var(--gold)}.quick span{display:block;font-size:18px;margin-bottom:12px}.quick b{font-size:12px;display:block}.quick small{font-size:10px;color:#858994;display:block;margin-top:5px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff}.table{width:100%;border-collapse:collapse;min-width:600px}.table th,.table td{text-align:left;padding:13px 15px;border-bottom:1px solid #f0f1f3;font-size:12px;vertical-align:middle}.table th{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#858994;background:#fafafa}.table tr:last-child td{border-bottom:0}.table td{color:#424650}.table .strong{font-weight:750;color:#222}.table-empty{text-align:center!important;color:#9296a0!important;padding:32px!important}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}.search{min-width:190px;flex:1;position:relative}.search input{width:100%;border:1px solid var(--line);background:#fff;padding:11px 13px;border-radius:10px;outline:none;font-size:12px}.search input:focus,input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:2px solid #c9a34a22}.field{display:grid;gap:6px;margin-bottom:14px}.field label{font-size:11px;font-weight:750;color:#555a64}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;outline:none;font-size:12px}.field textarea{min-height:80px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 13px}.form-grid .full{grid-column:1/-1}.form-actions{display:flex;justify-content:flex-end;gap:8px}.notice{padding:12px 14px;border-radius:11px;background:#fff8e7;border:1px solid #f0dfb1;color:#725b20;font-size:12px;line-height:1.6;margin-bottom:15px}.success{background:#eaf8f0;border-color:#ccebd9;color:#216b43}.error{background:#fff0f0;border-color:#f1d0d0;color:#9b3030}.hidden{display:none!important}.overlay{position:fixed;inset:0;background:#10111488;z-index:20;display:grid;place-items:center;padding:16px}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;padding:23px;box-shadow:0 20px 70px #0003}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.modal-head h3{margin:0;font-size:18px}.xbtn{border:0;background:#f3f4f6;border-radius:9px;width:34px;height:34px;font-size:18px}.footer-note{font-size:10px;color:#9a9da5;text-align:center;padding:25px 0 0}.mobile-overlay{display:none}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col{grid-template-columns:1fr}.content{padding:22px}.topbar{padding:0 22px}}
+@media(max-width:650px){.sidebar{position:fixed;z-index:15;inset:0 auto 0 0;width:270px;transform:translateX(-102%);transition:transform .22s;box-shadow:20px 0 50px #0002}.sidebar.open{transform:translateX(0)}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#0006;z-index:14}.menu-toggle{display:block}.topbar{height:67px;padding:0 14px}.topbar h1{font-size:17px}.status{display:none}.content{padding:19px 13px 30px}.page-head{align-items:flex-start;flex-direction:column}.page-head h2{font-size:23px}.page-head .btn{align-self:stretch}.stats{gap:10px}.stat{padding:14px}.stat-value{font-size:22px}.stat-top{font-size:10px;gap:6px}.stat-icon{width:30px;height:30px}.panel{padding:14px}.quick-grid{gap:8px}.quick{padding:12px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}.table th,.table td{padding:11px 12px}}
 </style>
 </head>
 <body>
-<div class="layout">
-<aside class="sidebar" id="sidebar">
- <div class="brand">
-  <strong>C&C</strong>
-  <small>CLOTH & CRAFT FASHION</small>
-  <small>ADMINISTRATION</small>
- </div>
- <nav class="nav" id="nav">
-  <button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
-  <button data-page="categories">▤ &nbsp; Categories</button>
-  <button data-page="products">◈ &nbsp; Products</button>
-  <button data-page="orders">▣ &nbsp; Orders</button>
-  <button data-page="customers">♙ &nbsp; Customers</button>
-  <button data-page="resellers">♧ &nbsp; Resellers</button>
-  <button data-page="reports">▥ &nbsp; Reports</button>
-  <button data-page="settings">⚙ &nbsp; Settings</button>
- </nav>
- <div style="margin-top:25px;color:#999;font-size:11px;line-height:1.8">
-  CLOTH & CRAFT FASHION<br><span style="color:#d4af55">ADMIN PANEL</span>
- </div>
-</aside>
-
-<main class="main">
-<header class="top">
- <div style="display:flex;align-items:center;gap:10px">
-  <button class="btn mobile-menu" id="menuBtn">☰</button>
-  <h2 style="margin:0" id="topTitle">Dashboard</h2>
- </div>
- <div style="display:flex;align-items:center;gap:9px">
-  <span id="connection" style="font-size:12px;color:#777">Not connected</span>
-  <span style="background:#171717;color:#d4af55;padding:10px;border-radius:9px;font-weight:bold">C&C</span>
- </div>
-</header>
-
-<div class="content">
-<div id="message" class="notice hidden"></div>
-
-<section id="page-dashboard" class="page">
- <div class="heading">
-  <div><h1>Dashboard</h1><p>Welcome to your store administration.</p></div>
-  <button class="btn gold" onclick="refreshAll()">↻ Refresh Data</button>
- </div>
- <div class="stats">
-  <div class="card"><small>Total Categories</small><div class="number" id="statCategories">—</div></div>
-  <div class="card"><small>Total Products</small><div class="number" id="statProducts">—</div></div>
-  <div class="card"><small>Total Orders</small><div class="number" id="statOrders">—</div></div>
-  <div class="card"><small>Total Profiles</small><div class="number" id="statProfiles">—</div></div>
- </div>
- <div class="panel">
-  <h3>Store Overview</h3>
-  <p style="color:#777;font-size:13px;line-height:1.8">Manage your products, categories and orders from one place. Connect to Supabase to load your store data.</p>
-  <button class="btn gold" onclick="testConnection()">Test Supabase Connection</button>
-  <button class="btn" onclick="showPage('orders')">View Orders →</button>
- </div>
- <div class="panel">
-  <h3>Recent Orders</h3>
-  <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Date</th></tr></thead><tbody id="recentOrders"><tr><td colspan="4" class="empty">Connect Supabase to load orders.</td></tr></tbody></table></div>
- </div>
-</section>
-
-<section id="page-categories" class="page hidden">
- <div class="heading"><div><h1>Categories</h1><p>View and add product categories.</p></div></div>
- <div class="panel">
-  <h3>Add Category</h3>
-  <form id="categoryForm" class="formrow">
-   <input id="categoryName" placeholder="Category name in English" required>
-   <button class="btn gold" type="submit">+ Add Category</button>
-  </form>
-  <p style="font-size:12px;color:#777">Requires a compatible categories table and INSERT permission.</p>
- </div>
- <div class="panel">
-  <div class="toolbar"><input id="categorySearch" placeholder="Search categories..." oninput="filterTable('categoryTable',this.value)"><button class="btn" onclick="loadCategories()">↻ Refresh</button></div>
-  <div class="table-wrap"><table id="categoryTable"><thead><tr><th>ID</th><th>Name</th><th>Status</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div>
- </div>
-</section>
-
-<section id="page-products" class="page hidden">
- <div class="heading"><div><h1>Products</h1><p>View products stored in Supabase.</p></div><button class="btn" onclick="loadProducts()">↻ Refresh</button></div>
- <div class="panel">
-  <div class="toolbar"><input placeholder="Search products..." oninput="filterTable('productTable',this.value)"></div>
-  <div class="table-wrap"><table id="productTable"><thead><tr><th>ID</th><th>Product</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead><tbody><tr><td colspan="5" class="empty">No data loaded.</td></tr></tbody></table></div>
- </div>
- <div class="notice">This version displays products. Product image uploads and full add/edit/delete operations require matching table fields and storage policies.</div>
-</section>
-
-<section id="page-orders" class="page hidden">
- <div class="heading"><div><h1>Orders</h1><p>View customer orders from your database.</p></div><button class="btn" onclick="loadOrders()">↻ Refresh</button></div>
- <div class="panel">
-  <div class="toolbar"><input placeholder="Search orders..." oninput="filterTable('orderTable',this.value)"></div>
-  <div class="table-wrap"><table id="orderTable"><thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody><tr><td colspan="5" class="empty">No data loaded.</td></tr></tbody></table></div>
- </div>
- <div class="notice">Orders can be displayed when the database permits access. Updating status and confirming orders needs the exact schema and UPDATE policy.</div>
-</section>
-
-<section id="page-customers" class="page hidden">
- <div class="heading"><div><h1>Customers</h1><p>Profiles available to this admin account.</p></div><button class="btn" onclick="loadProfiles()">↻ Refresh</button></div>
- <div class="panel"><div class="table-wrap"><table id="customerTable"><thead><tr><th>ID</th><th>Name</th><th>Role</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div></div>
-</section>
-
-<section id="page-resellers" class="page hidden">
- <div class="heading"><div><h1>Resellers</h1><p>Reseller management overview.</p></div><button class="btn" onclick="loadProfiles()">↻ Refresh Profiles</button></div>
- <div class="panel">
-  <h3>Commission Tier Rules</h3>
-  <div class="table-wrap"><table><thead><tr><th>Completed Orders</th><th>Commission</th></tr></thead><tbody>
-  <tr><td>Orders 1–20</td><td>8%</td></tr>
-  <tr><td>Orders 21–50</td><td>10%</td></tr>
-  <tr><td>Orders 51–100</td><td>12%</td></tr>
-  <tr><td>Orders 101+</td><td>15%</td></tr>
-  </tbody></table></div>
-  <p style="font-size:12px;color:#777">These are display rules only. Automatic commission calculation and referral rewards are not implemented in this version.</p>
- </div>
- <div class="panel"><h3>Profiles</h3><div class="table-wrap"><table id="resellerTable"><thead><tr><th>ID</th><th>Name</th><th>Role</th></tr></thead><tbody><tr><td colspan="3" class="empty">No data loaded.</td></tr></tbody></table></div></div>
-</section>
-
-<section id="page-reports" class="page hidden">
- <div class="heading"><div><h1>Reports</h1><p>Basic store data overview.</p></div><button class="btn" onclick="refreshAll()">↻ Refresh</button></div>
- <div class="stats">
-  <div class="card"><small>Categories</small><div class="number" id="reportCategories">—</div></div>
-  <div class="card"><small>Products</small><div class="number" id="reportProducts">—</div></div>
-  <div class="card"><small>Orders</small><div class="number" id="reportOrders">—</div></div>
-  <div class="card"><small>Profiles</small><div class="number" id="reportProfiles">—</div></div>
- </div>
- <div class="notice">These are record counts, not financial sales reports. Revenue and commission reports require confirmed order fields.</div>
-</section>
-
-<section id="page-settings" class="page hidden">
- <div class="heading"><div><h1>Settings</h1><p>Supabase connection and administrator sign-in.</p></div></div>
- <div class="panel">
-  <h3>Database Connection</h3>
-  <p style="font-size:13px;color:#777">The project URL and publishable key are configured in this HTML file.</p>
-  <button class="btn gold" onclick="testConnection()">Test Supabase</button>
-  <button class="btn" onclick="refreshAll()">Refresh All Data</button>
- </div>
- <div class="panel">
-  <h3>Admin Login</h3>
-  <form id="loginForm">
-   <p><input type="email" id="loginEmail" placeholder="Admin email" required style="width:100%"></p>
-   <p><input type="password" id="loginPassword" placeholder="Password" required style="width:100%"></p>
-   <button class="btn gold" type="submit">Sign In</button>
-   <button class="btn" type="button" onclick="signOut()">Sign Out</button>
-  </form>
-  <p id="loginStatus" style="font-size:12px;color:#777">Not signed in.</p>
- </div>
-</section>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brandmark">C&amp;C</div><div><strong>CLOTH &amp; CRAFT</strong><small>FASHION · ADMIN</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav" id="nav">
+      <button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
+      <button data-page="categories"><span class="ico">▤</span>Categories</button>
+      <button data-page="products"><span class="ico">◇</span>Products</button>
+      <button data-page="orders"><span class="ico">▣</span>Orders</button>
+      <button data-page="customers"><span class="ico">♙</span>Customers</button>
+      <button data-page="resellers"><span class="ico">♧</span>Resellers</button>
+      <button data-page="reports"><span class="ico">▥</span>Reports</button>
+    </nav>
+    <div class="nav-label">SYSTEM</div>
+    <nav class="nav"><button data-page="settings"><span class="ico">⚙</span>Settings</button></nav>
+    <div class="side-bottom">Built for <b>Cloth &amp; Craft Fashion</b><br>Admin workspace · v1.0</div>
+  </aside>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left"><button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button><div><div class="eyebrow">CLOTH &amp; CRAFT FASHION</div><h1 id="topTitle">Dashboard</h1></div></div>
+      <div class="top-actions"><div class="status"><span class="dot"></span><span id="connectionLabel">Not connected</span></div><div class="avatar">CC</div></div>
+    </header>
+    <div class="content">
+      <div id="message" class="notice hidden"></div>
+      <section class="page" id="page-dashboard">
+        <div class="page-head"><div><h2>Welcome back 👋</h2><p>Here’s your store overview. Live figures appear when your data is connected.</p></div><button class="btn" id="refreshDashboard">↻ Refresh data</button></div>
+        <div class="grid stats">
+          <div class="stat"><div class="stat-top">Total Products <span class="stat-icon">◇</span></div><div class="stat-value" id="statProducts">—</div><div class="stat-note">Products in your catalogue</div></div>
+          <div class="stat"><div class="stat-top">Categories <span class="stat-icon">▤</span></div><div class="stat-value" id="statCategories">—</div><div class="stat-note">Store categories</div></div>
+          <div class="stat"><div class="stat-top">Total Orders <span class="stat-icon">▣</span></div><div class="stat-value" id="statOrders">—</div><div class="stat-note">Orders in your system</div></div>
+          <div class="stat"><div class="stat-top">Connection <span class="stat-icon">⌁</span></div><div class="stat-value" id="statConnection" style="font-size:19px">Not tested</div><div class="stat-note">Supabase API status</div></div>
+        </div>
+        <div class="grid two-col">
+          <div class="panel"><div class="panel-head"><div><h3>Store activity</h3><p>Sales chart will appear after order and payment fields are verified.</p></div><span class="pill">LIVE DATA PENDING</span></div><div class="empty-chart"><strong>Your store analytics will live here</strong>Connect and load your database to begin.</div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Quick actions</h3><p>Jump straight to a store task.</p></div></div><div class="quick-grid"><button class="quick" data-goto="categories"><span>▤</span><b>Manage categories</b><small>Add and organise collections</small></button><button class="quick" data-goto="products"><span>◇</span><b>Manage products</b><small>Review catalogue data</small></button><button class="quick" data-goto="orders"><span>▣</span><b>View orders</b><small>Check customer orders</small></button><button class="quick" data-goto="settings"><span>⚙</span><b>Connection setup</b><small>Test your database</small></button></div></div>
+        </div>
+        <div class="panel" style="margin-top:16px"><div class="panel-head"><div><h3>Recent orders</h3><p>Latest orders from your database, when available.</p></div><button class="btn" data-goto="orders">View all →</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Created</th></tr></thead><tbody id="recentOrders"><tr><td class="table-empty" colspan="4">Connect the database to load orders.</td></tr></tbody></table></div></div>
+      </section>
+      <section class="page hidden" id="page-categories">
+        <div class="page-head"><div><h2>Categories</h2><p>Manage the collections customers browse on your website.</p></div><button class="btn gold" id="addCategory">＋ Add category</button></div>
+        <div class="notice">Category fields can vary by project. This panel reads your <b>categories</b> table and safely saves the common fields <b>name</b>, <b>slug</b>, and <b>is_active</b>. If your table uses different column names, it will show the database error instead of silently failing.</div>
+        <div class="panel"><div class="toolbar"><div class="search"><input id="categorySearch" placeholder="Search categories…"></div><button class="btn" id="reloadCategories">↻ Refresh</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Category name</th><th>Slug</th><th>Status</th><th>Actions</th></tr></thead><tbody id="categoriesRows"><tr><td colspan="4" class="table-empty">Use Refresh to load categories.</td></tr></tbody></table></div></div>
+      </section>
+      <section class="page hidden" id="page-products">
+        <div class="page-head"><div><h2>Products</h2><p>View products stored in your Supabase catalogue.</p></div><button class="btn" id="reloadProducts">↻ Refresh products</button></div>
+        <div class="panel"><div class="toolbar"><div class="search"><input id="productSearch" placeholder="Search product names…"></div><span class="pill" id="productCount">Not loaded</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Product</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead><tbody id="productsRows"><tr><td colspan="4" class="table-empty">Refresh to load products.</td></tr></tbody></table></div></div>
+      </section>
+      <section class="page hidden" id="page-orders">
+        <div class="page-head"><div><h2>Orders</h2><p>Review customer orders and their current status.</p></div><button class="btn" id="reloadOrders">↻ Refresh orders</button></div>
+        <div class="panel"><div class="toolbar"><div class="search"><input id="orderSearch" placeholder="Search order code or status…"></div><span class="pill" id="orderCount">Not loaded</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Order code / ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Created</th></tr></thead><tbody id="ordersRows"><tr><td colspan="5" class="table-empty">Refresh to load orders.</td></tr></tbody></table></div></div>
+        <div class="notice" style="margin-top:15px">Order status updates are not enabled yet. First we need to confirm the exact columns and secure order policies in your database.</div>
+      </section>
+      <section class="page hidden" id="page-customers">
+        <div class="page-head"><div><h2>Customers</h2><p>Customer profiles are protected by login and row-level security.</p></div><button class="btn" id="reloadCustomers">↻ Refresh customers</button></div>
+        <div class="notice">Customer details will only load when the admin is signed in and your profiles table allows the admin role to view them.</div>
+        <div class="panel"><div class="table-wrap"><table class="table"><thead><tr><th>Profile ID</th><th>Role</th><th>Created</th></tr></thead><tbody id="customersRows"><tr><td colspan="3" class="table-empty">Refresh to load profiles.</td></tr></tbody></table></div></div>
+      </section>
+      <section class="page hidden" id="page-resellers">
+        <div class="page-head"><div><h2>Resellers</h2><p>Reseller approval, performance, and commissions.</p></div></div>
+        <div class="notice">Reseller dashboards and commission calculations need to be connected to your verified profiles, orders, and reseller_commissions fields. No commission figures are fabricated here.</div>
+        <div class="panel"><h3 style="margin-top:0;font-size:14px">Planned commission rules</h3><div class="table-wrap"><table class="table"><thead><tr><th>Completed orders</th><th>Commission rate</th></tr></thead><tbody><tr><td>1–20</td><td>8%</td></tr><tr><td>21–50</td><td>10%</td></tr><tr><td>51–100</td><td>12%</td></tr><tr><td>101+</td><td>15%</td></tr></tbody></table></div><p style="font-size:12px;color:#777d88;line-height:1.6">Referral reward: ৳50 after the referred reseller's first delivered order. These are display notes only; automatic calculations are not enabled yet.</p></div>
+      </section>
+      <section class="page hidden" id="page-reports">
+        <div class="page-head"><div><h2>Reports</h2><p>Sales, payment, and delivery reports will use real order records.</p></div></div>
+        <div class="notice">Reports are not calculated until we verify order status, total amount, payment method, and created date columns. This avoids showing misleading totals.</div>
+        <div class="grid stats"><div class="stat"><div class="stat-top">Sales revenue</div><div class="stat-value">—</div><div class="stat-note">Waiting for verified order fields</div></div><div class="stat"><div class="stat-top">Delivered</div><div class="stat-value">—</div><div class="stat-note">Waiting for status mapping</div></div><div class="stat"><div class="stat-top">Pending</div><div class="stat-value">—</div><div class="stat-note">Waiting for status mapping</div></div><div class="stat"><div class="stat-top">Cancelled</div><div class="stat-value">—</div><div class="stat-note">Waiting for status mapping</div></div></div>
+      </section>
+      <section class="page hidden" id="page-settings">
+        <div class="page-head"><div><h2>Settings & connection</h2><p>Test the Supabase API connection and admin session.</p></div></div>
+        <div class="grid two-col">
+          <div class="panel"><div class="panel-head"><div><h3>Database connection</h3><p>Uses your project URL and publishable key.</p></div><span class="pill" id="connectionPill">Not tested</span></div><button class="btn gold" id="testConnection">↻ Test Supabase</button><button class="btn" id="loadAll" style="margin-left:7px">Load dashboard data</button><div id="connectionResult" class="notice" style="margin-top:15px">Not tested yet.</div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Admin sign-in</h3><p>Sign in with the admin account you created in Supabase Auth.</p></div></div><div id="authState" class="notice">Checking session…</div><div class="field"><label>Admin email</label><input id="adminEmail" type="email" placeholder="you@example.com" autocomplete="username"></div><div class="field"><label>Password</label><input id="adminPassword" type="password" placeholder="Your password" autocomplete="current-password"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" id="signIn">Sign in</button><button class="btn" id="signOut">Sign out</button></div><p style="font-size:10px;color:#9296a0;line-height:1.6;margin-bottom:0">Use only your own admin account. Never put a service-role or secret key in this file.</p></div>
+        </div>
+      </section>
+      <div class="footer-note">CLOTH &amp; CRAFT FASHION · ADMIN PANEL</div>
+    </div>
+  </main>
 </div>
-</main>
-</div>
-
+<div class="overlay hidden" id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Add category</h3><button class="xbtn" id="closeModal" aria-label="Close">×</button></div><form id="categoryForm"><input type="hidden" id="editCategoryId"><div class="field"><label for="categoryName">Category name *</label><input id="categoryName" required maxlength="100" placeholder="e.g. Boys’ Collection"></div><div class="field"><label for="categorySlug">Slug</label><input id="categorySlug" maxlength="120" placeholder="boys-collection"></div><div class="field"><label for="categoryActive">Status</label><select id="categoryActive"><option value="true">Active</option><option value="false">Inactive</option></select></div><div class="form-actions"><button type="button" class="btn" id="cancelModal">Cancel</button><button type="submit" class="btn gold" id="saveCategory">Save category</button></div></form></div></div>
 <script>
-"use strict";
-
-/* Supabase project configuration */
-const SUPABASE_URL = "https://hdrfxccfqfcsmgbetyxd.supabase.co";
-const SUPABASE_KEY = "sb_publishable_E7ax_M_YipmRA8JgUZkfig_iiuGX_1x";
-
-let accessToken = "";
+'use strict';
+const SUPABASE_URL = 'https://hdrfxccfqfcsmgbetyxd.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E7ax_M_YipmRA8JgUZkfig_iiuGX_1x';
+const API = SUPABASE_URL + '/rest/v1';
+let accessToken = SUPABASE_PUBLISHABLE_KEY;
 let currentUser = null;
-let cached = {categories:[],products:[],orders:[],profiles:[]};
-
-function notify(message, type=""){
- const box=document.getElementById("message");
- box.textContent=message;
- box.className="notice "+(type==="good"?"good":type==="bad"?"bad":"");
- box.classList.remove("hidden");
-}
-function clearNotify(){
- document.getElementById("message").classList.add("hidden");
-}
-function showPage(page){
- document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
- const section=document.getElementById("page-"+page);
- if(section)section.classList.remove("hidden");
- document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- document.getElementById("topTitle").textContent=page.charAt(0).toUpperCase()+page.slice(1);
- document.getElementById("sidebar").classList.remove("open");
- clearNotify();
-}
-document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
-
-function headers(extra={}){
- return Object.assign({
-  "apikey":SUPABASE_KEY,
-  "Authorization":"Bearer "+(accessToken||SUPABASE_KEY),
-  "Content-Type":"application/json"
- },extra);
-}
-async function api(path,options={}){
- const response=await fetch(SUPABASE_URL+"/rest/v1/"+path,{
-  ...options,
-  headers:headers(options.headers||{})
- });
- const raw=await response.text();
- let data=null;
- try{data=raw?JSON.parse(raw):null}catch(e){data=raw}
- if(!response.ok)throw new Error((data&&data.message)||("HTTP "+response.status+": "+raw));
- return data;
-}
-async function auth(path,options={}){
- const response=await fetch(SUPABASE_URL+"/auth/v1/"+path,{
-  ...options,
-  headers:headers(options.headers||{})
- });
- const raw=await response.text();
- let data=null;
- try{data=raw?JSON.parse(raw):null}catch(e){data=raw}
- if(!response.ok)throw new Error((data&&data.msg)||(data&&data.message)||("HTTP "+response.status));
- return data;
-}
-function setConnection(text,ok=false){
- const el=document.getElementById("connection");
- el.textContent=text;
- el.style.color=ok?"#18845b":"#b07822";
-}
-async function testConnection(){
- try{
-  await api("categories?select=*&limit=1");
-  setConnection("Connected",true);
-  notify("Supabase connection successful. Categories table is accessible.","good");
- }catch(e){
-  setConnection("Connection issue");
-  notify("Connection failed: "+e.message+". Check the table, API key and RLS policies.","bad");
- }
-}
-function safe(value){
- return String(value??"—").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function first(obj,keys){
- for(const key of keys)if(obj&&obj[key]!==undefined&&obj[key]!==null)return obj[key];
- return "—";
-}
-function rows(tableId,items,columns,emptyText){
- const body=document.querySelector("#"+tableId+" tbody");
- if(!body)return;
- if(!items||!items.length){
-  body.innerHTML='<tr><td colspan="'+columns.length+'" class="empty">'+safe(emptyText)+'</td></tr>';
-  return;
- }
- body.innerHTML=items.map(item=>"<tr>"+columns.map(col=>"<td>"+safe(col(item))+"</td>").join("")+"</tr>").join("");
-}
-function updateStats(){
- const counts={
-  Categories:cached.categories.length,
-  Products:cached.products.length,
-  Orders:cached.orders.length,
-  Profiles:cached.profiles.length
- };
- for(const [key,value] of Object.entries(counts)){
-  const id="stat"+key;
-  const el=document.getElementById(id);
-  if(el)el.textContent=value;
-  const report=document.getElementById("report"+key);
-  if(report)report.textContent=value;
- }
-}
-async function loadCategories(){
- try{
-  const data=await api("categories?select=*&limit=500");
-  cached.categories=data||[];
-  rows("categoryTable",cached.categories,[
-   x=>first(x,["id","category_id"]),
-   x=>first(x,["name","title","category_name"]),
-   x=>first(x,["status","is_active"])
-  ],"No categories found.");
-  updateStats();
- }catch(e){notify("Could not load categories: "+e.message,"bad");}
-}
-async function loadProducts(){
- try{
-  const data=await api("products?select=*&limit=500");
-  cached.products=data||[];
-  rows("productTable",cached.products,[
-   x=>first(x,["id","product_id","sku"]),
-   x=>first(x,["name","title","product_name"]),
-   x=>first(x,["price","selling_price"]),
-   x=>first(x,["stock","quantity","stock_quantity"]),
-   x=>first(x,["status","is_active"])
-  ],"No products found.");
-  updateStats();
- }catch(e){notify("Could not load products: "+e.message,"bad");}
-}
-async function loadOrders(){
- try{
-  const data=await api("orders?select=*&order=created_at.desc&limit=200");
-  cached.orders=data||[];
-  rows("orderTable",cached.orders,[
-   x=>first(x,["order_code","id","order_id"]),
-   x=>first(x,["customer_name","name","customer_id","user_id"]),
-   x=>first(x,["total_amount","total","grand_total"]),
-   x=>first(x,["status","order_status"]),
-   x=>first(x,["created_at","order_date"])
-  ],"No orders found.");
-  rows("recentOrders",cached.orders.slice(0,8),[
-   x=>first(x,["order_code","id","order_id"]),
-   x=>first(x,["customer_name","name","customer_id","user_id"]),
-   x=>first(x,["status","order_status"]),
-   x=>first(x,["created_at","order_date"])
-  ],"No orders found.");
-  updateStats();
- }catch(e){notify("Could not load orders: "+e.message,"bad");}
-}
-async function loadProfiles(){
- try{
-  const data=await api("profiles?select=*&limit=500");
-  cached.profiles=data||[];
-  const cols=[
-   x=>first(x,["id","user_id"]),
-   x=>first(x,["full_name","name","display_name","email"]),
-   x=>first(x,["role","account_type","user_type"])
-  ];
-  rows("customerTable",cached.profiles,cols,"No accessible profiles found.");
-  const resellerList=cached.profiles.filter(x=>String(first(x,["role","account_type","user_type"])).toLowerCase().includes("reseller"));
-  rows("resellerTable",resellerList,cols,"No reseller profiles found, or access is restricted.");
-  updateStats();
- }catch(e){notify("Could not load profiles: "+e.message,"bad");}
-}
-async function refreshAll(){
- clearNotify();
- await Promise.allSettled([loadCategories(),loadProducts(),loadOrders(),loadProfiles()]);
- notify("Refresh finished. If any section is empty, check its table and RLS permissions.","good");
-}
-document.getElementById("categoryForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const input=document.getElementById("categoryName");
- const name=input.value.trim();
- if(!name)return;
- try{
-  await api("categories",{method:"POST",headers:{"Prefer":"return=minimal"},body:JSON.stringify({name:name})});
-  input.value="";
-  notify("Category added successfully.","good");
-  await loadCategories();
- }catch(err){
-  notify("Could not add category: "+err.message+". Your categories table may use a different name column or INSERT may be blocked by RLS.","bad");
- }
-});
-function filterTable(tableId,value){
- const table=document.getElementById(tableId);
- if(!table)return;
- const q=value.toLowerCase();
- table.querySelectorAll("tbody tr").forEach(row=>{
-  row.style.display=row.innerText.toLowerCase().includes(q)?"":"none";
- });
-}
-document.getElementById("loginForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const email=document.getElementById("loginEmail").value.trim();
- const password=document.getElementById("loginPassword").value;
- const status=document.getElementById("loginStatus");
- try{
-  const result=await auth("token?grant_type=password",{
-   method:"POST",
-   body:JSON.stringify({email,password})
-  });
-  accessToken=result.access_token;
-  currentUser=result.user;
-  status.textContent="Signed in as "+(currentUser.email||email);
-  notify("Signed in. Database access still depends on your RLS policies.","good");
-  await refreshAll();
- }catch(err){
-  status.textContent="Sign-in failed.";
-  notify("Login failed: "+err.message,"bad");
- }
-});
-async function signOut(){
- accessToken="";
- currentUser=null;
- document.getElementById("loginStatus").textContent="Signed out.";
- notify("Signed out.","good");
-}
-setConnection("Not connected");
+let categoriesCache = [];
+let productsCache = [];
+let ordersCache = [];
+const $ = id => document.getElementById(id);
+const headers = () => ({'apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+accessToken,'Content-Type':'application/json'});
+function safeText(value){return String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function showMessage(text,type=''){const box=$('message');box.textContent=text;box.className='notice'+(type?' '+type:'');box.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function hideMessage(){$('message').classList.add('hidden');}
+function setConnection(ok,label){$('connectionLabel').textContent=label;$('statConnection').textContent=ok?'Connected':'Offline';$('connectionPill').textContent=label;$('connectionPill').style.background=ok?'#e7f7ed':'#fff0f0';$('connectionPill').style.color=ok?'#216b43':'#9b3030';}
+function go(page){const valid=['dashboard','categories','products','orders','customers','resellers','reports','settings'];if(!valid.includes(page))page='dashboard';document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('topTitle').textContent=page[0].toUpperCase()+page.slice(1);$('sidebar').classList.remove('open');$('mobileOverlay').classList.remove('show');hideMessage();if(page==='settings')checkSession();}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.goto)));
+$('menuToggle').addEventListener('click',()=>{$('sidebar').classList.add('open');$('mobileOverlay').classList.add('show')});
+$('mobileOverlay').addEventListener('click',()=>{$('sidebar').classList.remove('open');$('mobileOverlay').classList.remove('show')});
+async function api(path,options={}){const response=await fetch(API+path,{...options,headers:{...headers(),...(options.headers||{})}});const raw=await response.text();let data;try{data=raw?JSON.parse(raw):null}catch{data=raw}if(!response.ok){let msg=data&&data.message?data.message:(typeof data==='string'?data:'HTTP '+response.status);throw new Error(msg)}return data;}
+async function testConnection(){const result=$('connectionResult');result.textContent='Checking Supabase…';result.className='notice';try{const data=await api('/categories?select=*&limit=1');result.textContent='Supabase API responded successfully. Category table is reachable. This does not by itself confirm that admin sign-in is active.';result.className='notice success';setConnection(true,'API reachable');return data;}catch(e){result.textContent='Connection/test failed: '+e.message;result.className='notice error';setConnection(false,'Check settings');throw e;}}
+async function loadDashboard(){try{const [cats,prods,orders]=await Promise.all([api('/categories?select=*&limit=1000'),api('/products?select=*&limit=1000'),api('/orders?select=*&order=created_at.desc&limit=5')]);categoriesCache=cats||[];productsCache=prods||[];ordersCache=orders||[];$('statCategories').textContent=categoriesCache.length;$('statProducts').textContent=productsCache.length;$('statOrders').textContent=ordersCache.length;renderRecentOrders();setConnection(true,'Data loaded');}catch(e){showMessage('Could not load dashboard data: '+e.message+' — check table columns and Row Level Security policies.','error');}}
+function renderRecentOrders(){const body=$('recentOrders');if(!ordersCache.length){body.innerHTML='<tr><td colspan="4" class="table-empty">No visible orders found, or the orders table is empty.</td></tr>';return;}body.innerHTML=ordersCache.slice(0,5).map(o=>`<tr><td class="strong">${safeText(o.order_code??o.code??o.id??'—')}</td><td>${safeText(o.customer_name??o.name??o.customer_id??'—')}</td><td>${safeText(o.status??'—')}</td><td>${safeText(o.created_at?new Date(o.created_at).toLocaleDateString():'—')}</td></tr>`).join('');}
+async function loadCategories(){const body=$('categoriesRows');body.innerHTML='<tr><td colspan="4" class="table-empty">Loading categories…</td></tr>';try{categoriesCache=await api('/categories?select=*&order=name.asc&limit=1000');renderCategories();$('statCategories').textContent=categoriesCache.length;}catch(e){body.innerHTML=`<tr><td colspan="4" class="table-empty">${safeText(e.message)}</td></tr>`;showMessage('Could not load categories: '+e.message,'error');}}
+function renderCategories(){const q=$('categorySearch').value.trim().toLowerCase();const rows=categoriesCache.filter(c=>String(c.name??'').toLowerCase().includes(q)||String(c.slug??'').toLowerCase().includes(q));$('categoriesRows').innerHTML=rows.length?rows.map(c=>{const id=c.id;const active=c.is_active!==false;return `<tr><td class="strong">${safeText(c.name??'Unnamed')}</td><td>${safeText(c.slug??'—')}</td><td><span class="pill" style="background:${active?'#eaf8f0':'#f1f1f2'};color:${active?'#216b43':'#737780'}">${active?'Active':'Inactive'}</span></td><td><button class="btn" data-edit-cat="${safeText(id)}">Edit</button></td></tr>`}).join(''):'<tr><td colspan="4" class="table-empty">No categories found.</td></tr>';document.querySelectorAll('[data-edit-cat]').forEach(b=>b.addEventListener('click',()=>editCategory(b.dataset.editCat)));}
+$('categorySearch').addEventListener('input',renderCategories);
+function openCategoryModal(c=null){$('categoryForm').reset();$('editCategoryId').value=c?.id??'';$('categoryName').value=c?.name??'';$('categorySlug').value=c?.slug??'';$('categoryActive').value=String(c?.is_active!==false);$('modalTitle').textContent=c?'Edit category':'Add category';$('categoryModal').classList.remove('hidden');}
+function closeCategoryModal(){$('categoryModal').classList.add('hidden')}
+function editCategory(id){const c=categoriesCache.find(x=>String(x.id)===String(id));if(c)openCategoryModal(c);}
+$('addCategory').addEventListener('click',()=>openCategoryModal());$('closeModal').addEventListener('click',closeCategoryModal);$('cancelModal').addEventListener('click',closeCategoryModal);$('categoryModal').addEventListener('click',e=>{if(e.target===$('categoryModal'))closeCategoryModal()});
+$('categoryName').addEventListener('input',()=>{if(!$('editCategoryId').value||!$('categorySlug').dataset.touched){$('categorySlug').value=$('categoryName').value.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}});
+$('categorySlug').addEventListener('input',()=>{$('categorySlug').dataset.touched='1'});
+$('categoryForm').addEventListener('submit',async e=>{e.preventDefault();const id=$('editCategoryId').value;const name=$('categoryName').value.trim();const slug=$('categorySlug').value.trim()||name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const is_active=$('categoryActive').value==='true';const btn=$('saveCategory');btn.disabled=true;btn.textContent='Saving…';try{if(!currentUser)throw new Error('Please sign in with your admin account first (Settings → Admin sign-in).');const payload={name,slug,is_active};if(id){await api('/categories?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{'Prefer':'return=representation'},body:JSON.stringify(payload)});}else{await api('/categories',{method:'POST',headers:{'Prefer':'return=representation'},body:JSON.stringify(payload)});}closeCategoryModal();showMessage(id?'Category updated successfully.':'Category added successfully.','success');await loadCategories();}catch(err){showMessage('Could not save category: '+err.message,'error')}finally{btn.disabled=false;btn.textContent='Save category';}});
+$('reloadCategories').addEventListener('click',loadCategories);
+async function loadProducts(){const body=$('productsRows');body.innerHTML='<tr><td colspan="4" class="table-empty">Loading products…</td></tr>';try{productsCache=await api('/products?select=*&limit=1000');renderProducts();$('statProducts').textContent=productsCache.length;}catch(e){body.innerHTML=`<tr><td colspan="4" class="table-empty">${safeText(e.message)}</td></tr>`;showMessage('Could not load products: '+e.message,'error');}}
+function renderProducts(){const q=$('productSearch').value.trim().toLowerCase();const rows=productsCache.filter(p=>String(p.name??p.title??'').toLowerCase().includes(q));$('productCount').textContent=rows.length+' products';$('productsRows').innerHTML=rows.length?rows.map(p=>`<tr><td class="strong">${safeText(p.name??p.title??'Unnamed product')}</td><td>${safeText(p.price??p.selling_price??'—')}</td><td>${safeText(p.stock??p.quantity??'—')}</td><td>${safeText(p.is_active===false?'Inactive':(p.status??'Active'))}</td></tr>`).join(''):'<tr><td colspan="4" class="table-empty">No products found.</td></tr>';}
+$('productSearch').addEventListener('input',renderProducts);$('reloadProducts').addEventListener('click',loadProducts);
+async function loadOrders(){const body=$('ordersRows');body.innerHTML='<tr><td colspan="5" class="table-empty">Loading orders…</td></tr>';try{ordersCache=await api('/orders?select=*&order=created_at.desc&limit=1000');renderOrders();$('statOrders').textContent=ordersCache.length;renderRecentOrders();}catch(e){body.innerHTML=`<tr><td colspan="5" class="table-empty">${safeText(e.message)}</td></tr>`;showMessage('Could not load orders: '+e.message,'error');}}
+function renderOrders(){const q=$('orderSearch').value.trim().toLowerCase();const rows=ordersCache.filter(o=>[o.order_code,o.code,o.id,o.status,o.customer_name].some(v=>String(v??'').toLowerCase().includes(q)));$('orderCount').textContent=rows.length+' orders';$('ordersRows').innerHTML=rows.length?rows.map(o=>`<tr><td class="strong">${safeText(o.order_code??o.code??o.id??'—')}</td><td>${safeText(o.customer_name??o.name??o.customer_id??'—')}</td><td>${safeText(o.total_amount??o.total??o.total_price??'—')}</td><td><span class="pill">${safeText(o.status??'Unknown')}</span></td><td>${safeText(o.created_at?new Date(o.created_at).toLocaleString():'—')}</td></tr>`).join(''):'<tr><td colspan="5" class="table-empty">No matching orders found.</td></tr>';}
+$('orderSearch').addEventListener('input',renderOrders);$('reloadOrders').addEventListener('click',loadOrders);
+async function loadCustomers(){const body=$('customersRows');body.innerHTML='<tr><td colspan="3" class="table-empty">Loading profiles…</td></tr>';try{if(!currentUser)throw new Error('Sign in as admin first.');const rows=await api('/profiles?select=id,role,created_at&limit=1000');body.innerHTML=rows.length?rows.map(p=>`<tr><td class="strong">${safeText(p.id)}</td><td>${safeText(p.role??'—')}</td><td>${safeText(p.created_at?new Date(p.created_at).toLocaleDateString():'—')}</td></tr>`).join(''):'<tr><td colspan="3" class="table-empty">No visible profiles.</td></tr>';}catch(e){body.innerHTML=`<tr><td colspan="3" class="table-empty">${safeText(e.message)}</td></tr>`;showMessage('Could not load profiles: '+e.message,'error');}}
+$('reloadCustomers').addEventListener('click',loadCustomers);
+async function checkSession(){try{const r=await fetch(SUPABASE_URL+'/auth/v1/user',{headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+accessToken}});if(r.ok){currentUser=await r.json();$('authState').textContent='Signed in: '+(currentUser.email||currentUser.id);$('authState').className='notice success';}else{currentUser=null;$('authState').textContent='Not signed in. Enter your Supabase admin email and password below.';$('authState').className='notice';}}catch(e){currentUser=null;$('authState').textContent='Could not check session: '+e.message;$('authState').className='notice error';}}
+$('signIn').addEventListener('click',async()=>{const email=$('adminEmail').value.trim(),password=$('adminPassword').value;if(!email||!password){$('authState').textContent='Enter both email and password.';$('authState').className='notice error';return;}const b=$('signIn');b.disabled=true;b.textContent='Signing in…';try{const r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});const d=await r.json();if(!r.ok)throw new Error(d.msg||d.message||d.error_description||'Sign-in failed');accessToken=d.access_token;currentUser=d.user;$('authState').textContent='Signed in as '+(currentUser.email||currentUser.id)+'. You can now try admin actions.';$('authState').className='notice success';setConnection(true,'Signed in');showMessage('Signed in successfully.','success');}catch(e){$('authState').textContent='Sign-in failed: '+e.message;$('authState').className='notice error';}finally{b.disabled=false;b.textContent='Sign in';}});
+$('signOut').addEventListener('click',async()=>{try{await fetch(SUPABASE_URL+'/auth/v1/logout',{method:'POST',headers:headers()});}catch(e){}accessToken=SUPABASE_PUBLISHABLE_KEY;currentUser=null;await checkSession();showMessage('Signed out.','success')});
+$('testConnection').addEventListener('click',async()=>{try{await testConnection()}catch(e){}});
+$('loadAll').addEventListener('click',async()=>{try{await testConnection();await loadDashboard();showMessage('Dashboard data refreshed.','success')}catch(e){}});
+$('refreshDashboard').addEventListener('click',async()=>{try{await testConnection();await loadDashboard()}catch(e){}});
+window.addEventListener('error',e=>showMessage('JavaScript error: '+e.message,'error'));
+checkSession();
 </script>
 </body>
 </html>
